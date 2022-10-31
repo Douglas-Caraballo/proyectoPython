@@ -2,7 +2,6 @@ from tkinter import *
 from tkinter import messagebox
 from baseDeDatos import *
 from crud import *
-import crud
 from crud import interfacesCrud
 
 raiz = Tk()

@@ -1,10 +1,13 @@
 from tkinter import *
 from tkinter import messagebox
+from tkinter.ttk import Combobox
+from tkcalendar import DateEntry
 
 def RegistrarProducto():
     registrarVentana = Tk()
     registrarVentana.title("Registar producto")
 
+#------------ Frame Formulario ---------------------
     frameRegistrarVentana = Frame(registrarVentana)
     frameRegistrarVentana.pack()
 
@@ -31,5 +34,29 @@ def RegistrarProducto():
     textNombre = Entry(frameRegistrarVentana)
     textNombre.grid(row=1,column=1, padx=10, pady=10)
 
+    textCodigo = Entry(frameRegistrarVentana)
+    textCodigo.grid(row=2, column=1, padx=10, pady=10)
+
+    textPrecio = Entry(frameRegistrarVentana)
+    textPrecio.grid(row=3, column=1, padx=10, pady=10)
+
+    textCalendar = DateEntry(frameRegistrarVentana, width=18)
+    textCalendar.grid(row=4, column=1, padx=10, pady=10)
+
+    textCategoria = Combobox(frameRegistrarVentana, width=18)
+    textCategoria.grid(row=5, column=1, padx=10, pady=10)
+
+    textCantidad = Entry(frameRegistrarVentana)
+    textCantidad.grid(row=6, column=1, padx=10, pady=10)
+
+    #-------------- Frame Botones --------------------
+    frameBotonesRegistro = Frame(registrarVentana)
+    frameBotonesRegistro.pack()
+
+    botonRegistrar = Button(frameBotonesRegistro, text= "Registrar")
+    botonRegistrar.grid(row=1, column=1, padx=10, pady=10)
+
+    botonLimiar = Button(frameBotonesRegistro, text="Limpiar Campos")
+    botonLimiar.grid(row=1, column=2, padx=10, pady=10)
 
     registrarVentana.mainloop()
