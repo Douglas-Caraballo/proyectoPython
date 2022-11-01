@@ -2,8 +2,9 @@ from tkinter import *
 from tkinter import messagebox
 from tkinter.ttk import Combobox
 from tkcalendar import DateEntry
+from baseDeDatos import consultasBBDD
 
-def RegistrarProducto():
+def registrarProducto():
     registrarVentana = Tk()
     registrarVentana.title("Registar producto")
 
@@ -60,3 +61,26 @@ def RegistrarProducto():
     botonLimiar.grid(row=1, column=2, padx=10, pady=10)
 
     registrarVentana.mainloop()
+
+def listaDeProducto():
+
+    ventanaListaProductos = Tk()
+    ventanaListaProductos.title("Lista de productos")
+
+    frameBuscar = Frame(ventanaListaProductos)
+    frameBuscar.pack()
+
+
+
+
+
+    ventanaListaProductos.mainloop
+
+
+def salir(raiz):
+
+    salirDelSistema = messagebox.askquestion("Salir del sistema", "Desea salir del sistema?")
+
+    if salirDelSistema == "yes":
+
+        raiz.destroy()
