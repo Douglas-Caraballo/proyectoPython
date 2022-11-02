@@ -12,9 +12,14 @@ def crearBBDD():
         myCursor= myBBDD.cursor()
 
         myCursor.execute('''
-            CREATE DATABASE PRUEBAS;
+            CREATE DATABASE PYTHONSYSTEM;
 
             USE PRUEBAS;
+
+            CREATE TABLE CATEGORIAS(
+                ID INTEGER PRIMARY KEY AUTO_INCREMENT,
+                NOMBRE_CATEGORIA VARCHAR(30)
+            );
 
             CREATE TABLE PRODUCTOS(
                 ID INTEGER PRIMARY KEY AUTO_INCREMENT,
@@ -22,9 +27,11 @@ def crearBBDD():
                 CODIGO VARCHAR(30),
                 PRECIO INTEGER,
                 FECHA DATE,
-                CATEGORIA INTEGER,
-                CANTIDAD INTEGER
-        )''')
+                CATEGORIA_ID INTEGER,
+                CANTIDAD INTEGER NOT NULL,
+                CONSTRAINT CATEGORIAS_NOMBRES FOREIGN KEY(CATEGORIA_ID) REFERENCES CATEGORIAS(ID)
+                ON DELETE CASCADE ON UPDATE CASCADE
+            )''')
 
         messagebox.showinfo("Base de datos", "Se ha creado la base de datos")
 
