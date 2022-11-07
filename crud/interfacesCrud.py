@@ -84,3 +84,24 @@ def salir(raiz):
     if salirDelSistema == "yes":
 
         raiz.destroy()
+
+def registrarCategorias():
+    categoriasVentana = Tk()
+    categoriasVentana.title("Categorias")
+
+    frameRegistroCategorias = Frame(categoriasVentana)
+    frameRegistroCategorias.grid(row=0,column=1)
+
+    nombreCategoria = StringVar()
+
+    labelNombre = Label(frameRegistroCategorias, text="Nombre")
+    labelNombre.grid(row=1,column=1, padx=10)
+
+    cuadroNombre = Entry(frameRegistroCategorias, textvariable= nombreCategoria)
+    cuadroNombre.grid(row=1, column=2, padx=10, pady=10, columnspan=2)
+
+    botonRegistro = Button(frameRegistroCategorias, text="Registrar", command=lambda:consultasBBDD.crearCategoria(nombreCategoria))
+    botonRegistro.grid(row=3, column=1, padx=10, pady=10)
+
+    botonLimpiar= Button(frameRegistroCategorias, text="Limpiar Campos", command=lambda:consultasBBDD.limpiarCategoria(nombreCategoria))
+    botonLimpiar.grid(row=3, column=3, padx=10, pady=10)

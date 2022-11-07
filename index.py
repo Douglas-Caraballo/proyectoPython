@@ -1,5 +1,4 @@
 from tkinter import *
-from tkinter import messagebox
 from baseDeDatos import consultasBBDD
 from crud import interfacesCrud
 
@@ -30,14 +29,17 @@ labelLogo.grid(row=0,column=1,sticky="nsew", padx=10, pady=10)
 botonRegistrar = Button(frameMenu, text="Registrar",width=15, relief="flat",command=lambda:interfacesCrud.registrarProducto())
 botonRegistrar.grid(row=2, column=1, sticky="W")
 
+botonCategorias = Button(frameMenu, text="Categorias", width=15,relief="flat", command=lambda:interfacesCrud.registrarCategorias())
+botonCategorias.grid(row=3, column=1, sticky="w")
+
 botonLista = Button(frameMenu, text="Lista de Productos", relief="flat", command=lambda:interfacesCrud.listaDeProducto())
-botonLista.grid(row=3,column=1, sticky="W")
+botonLista.grid(row=4,column=1, sticky="W")
 
 botonReportes = Button(frameMenu, text="Reportes",width=15,relief="flat")
-botonReportes.grid(row=4, column=1,sticky="W")
+botonReportes.grid(row=5, column=1,sticky="W")
 
 botonSalir = Button(frameMenu, text="Salir", width=15, relief="flat", command=lambda:interfacesCrud.salir(raiz))
-botonSalir.grid(row=5, column=1, sticky="W")
+botonSalir.grid(row=6, column=1, sticky="W")
 
 #-------- Frame principal ------------------
 
