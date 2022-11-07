@@ -100,8 +100,8 @@ def registrarCategorias():
     cuadroNombre = Entry(frameRegistroCategorias, textvariable= nombreCategoria)
     cuadroNombre.grid(row=1, column=2, padx=10, pady=10, columnspan=2)
 
-    botonRegistro = Button(frameRegistroCategorias, text="Registrar", command=lambda:consultasBBDD.crearCategoria(nombreCategoria))
+    botonRegistro = Button(frameRegistroCategorias, text="Registrar", command=lambda:consultasBBDD.crearCategoria(cuadroNombre))
     botonRegistro.grid(row=3, column=1, padx=10, pady=10)
 
-    botonLimpiar= Button(frameRegistroCategorias, text="Limpiar Campos", command=lambda:consultasBBDD.limpiarCategoria(nombreCategoria))
+    botonLimpiar= Button(frameRegistroCategorias, text="Limpiar Campos", command=lambda:consultasBBDD.limpiarCategoria(cuadroNombre))
     botonLimpiar.grid(row=3, column=3, padx=10, pady=10)
