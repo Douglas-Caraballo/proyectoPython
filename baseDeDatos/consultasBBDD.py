@@ -64,27 +64,9 @@ def crearCategoria(nombreCategoria):
 
         messagebox.showinfo("Base de Datos", "Se ha agregado la categoria "+valor+" de forma exitosa")
 
-        nombreCategoria.set("")
+        nombreCategoria.delete(0,END)
     except:
         messagebox.showerror("Base de Datos", "Ocurrio un error al momento de guardar la categoria")
-"""
-
-    myBBDD = mysql.connector.connect(
-        host=hostBBDD,
-        user=userBBDD,
-        password=passwordBBDD,
-        database= databaseBBDD
-    )
-    values = (nombreCategoria.get())
-
-    myCursor = myBBDD.cursor()
-
-    myCursor.execute("INSERT INTO CATEGORIAS (NOMBRE_CATEGORIA) VALUES(%s)",(values,))
-
-    myBBDD.commit()
-
-    myCursor.close()
-    myBBDD.close() """
 
 def limpiarCategoria(nombreCategoria):
-    nombreCategoria.set("")
+    nombreCategoria.delete(0,END)
