@@ -105,3 +105,11 @@ def registrarCategorias():
 
     botonLimpiar= Button(frameRegistroCategorias, text="Limpiar Campos", command=lambda:consultasBBDD.limpiarCategoria(cuadroNombre))
     botonLimpiar.grid(row=3, column=3, padx=10, pady=10)
+
+    frameListaCategorias = Frame(categoriasVentana)
+    frameListaCategorias.grid(row=1,column=1)
+
+    labelCategorias = Label(frameListaCategorias, text="Categorias")
+    labelCategorias.grid(row=1,column=1,pady=10,sticky="nesw")
+
+    consultasBBDD.listaCategorias(frameListaCategorias)

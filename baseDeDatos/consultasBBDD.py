@@ -70,3 +70,25 @@ def crearCategoria(nombreCategoria):
 
 def limpiarCategoria(nombreCategoria):
     nombreCategoria.delete(0,END)
+
+def listaCategorias(frameListaCategorias):
+    try:
+        myBBDD = mysql.connector.connect(
+            host = hostBBDD,
+            user = userBBDD,
+            password = passwordBBDD,
+            database = databaseBBDD
+        )
+
+        myCursor = myBBDD.cursor()
+        myCursor.execute("SELECT * FROM CATEGORIAS")
+
+        myResult = myCursor.fetchall()
+
+        listaLablel = Listbox(frameListaCategorias,width=40)
+        listaLablel.grid(row=2, column=1, padx=10, pady=10)
+
+        for i in myResult:
+            listaLablel.insert(i[0], i[1])
+    except:
+        messagebox.showerror("","Error al momento de mostrar las categorias")
