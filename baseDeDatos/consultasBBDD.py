@@ -86,7 +86,7 @@ def listaCategorias(frameListaCategorias,categoriasVentana):
         myResult = myCursor.fetchall()
 
         listaLablel = Listbox(frameListaCategorias,width=40)
-        listaLablel.grid(row=2, column=1, padx=10, pady=10)
+        listaLablel.grid(row=2, column=1, padx=10, pady=10, columnspan=2)
 
         for i in myResult:
             listaLablel.insert(i[0],i[1])
@@ -94,7 +94,7 @@ def listaCategorias(frameListaCategorias,categoriasVentana):
         botonEditar = Button(frameListaCategorias, text="Editar Categoria",command=lambda:editarCategorias(listaLablel))
         botonEditar.grid(row=3, column=1, padx=10, pady=10)
 
-        botonEliminar = Button(frameListaCategorias, text="Eliminar Categoria")
+        botonEliminar = Button(frameListaCategorias, text="Eliminar Categoria", command=lambda:eliminarCategoria(listaLablel,categoriasVentana))
         botonEliminar.grid(row=3, column=2, padx=10, pady=10)
     except:
         messagebox.showerror("","Error al momento de mostrar las categorias")
@@ -141,3 +141,29 @@ def editarCategoriaFuncion(ventanaEditrarCategoria,categoriaSelecionada,nombreEd
 
     except:
         messagebox.showerror("Base de datos", "ocurrio un error al guardar el cambio")
+
+def eliminarCategoria(listaLablel,categoriasVentana):
+    for i in listaLablel.curselection():
+        categoriaSelecionada=listaLablel.get(i)
+
+    eliminar=messagebox.askquestion("Base de datos", "¿Desea Eliminar la categoria "+ categoriaSelecionada + "? No se podrá recuperar")
+    if eliminar=="yes":
+        try:
+            myBBDD = mysql.connector.connect(
+                host=hostBBDD,
+                user=userBBDD,
+                password=passwordBBDD,
+                database= databaseBBDD
+            )
+            myCursor = myBBDD.cursor()
+
+            myCursor.execute("DELETE FROM CATEGORIAS WHERE NOMBRE_CATEGORIA='"+ categoriaSelecionada+"'")
+            myBBDD.commit()
+            myCursor.close()
+            myBBDD.close()
+
+            messagebox.showinfo("Base de Datos", "La categoria: '" + categoriaSelecionada +"' Fue elminada")
+            categoriasVentana.destroy()
+
+        except:
+            messagebox.showerror("Base de datos", "No se pudo eliminar la categoria '" + categoriaSelecionada +"'")
