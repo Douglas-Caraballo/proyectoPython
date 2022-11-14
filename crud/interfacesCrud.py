@@ -109,7 +109,7 @@ def registrarCategorias():
     frameListaCategorias = Frame(categoriasVentana)
     frameListaCategorias.grid(row=1,column=1)
 
-    labelCategorias = Label(frameListaCategorias, text="Categorias")
+    labelCategorias = Label(frameListaCategorias, text="Categorias:")
     labelCategorias.grid(row=1,column=1,pady=10,sticky="nesw")
 
-    consultasBBDD.listaCategorias(frameListaCategorias)
+    consultasBBDD.listaCategorias(frameListaCategorias,categoriasVentana)

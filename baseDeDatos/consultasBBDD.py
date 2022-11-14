@@ -62,7 +62,7 @@ def crearCategoria(nombreCategoria):
         myCursor.close()
         myBBDD.close()
 
-        messagebox.showinfo("Base de Datos", "Se ha agregado la categoria "+valor+" de forma exitosa")
+        messagebox.showinfo("Base de Datos", "Se ha agregado la categoria '"+valor+"' de forma exitosa")
 
         nombreCategoria.delete(0,END)
     except:
@@ -71,7 +71,7 @@ def crearCategoria(nombreCategoria):
 def limpiarCategoria(nombreCategoria):
     nombreCategoria.delete(0,END)
 
-def listaCategorias(frameListaCategorias):
+def listaCategorias(frameListaCategorias,categoriasVentana):
     try:
         myBBDD = mysql.connector.connect(
             host = hostBBDD,
@@ -89,6 +89,55 @@ def listaCategorias(frameListaCategorias):
         listaLablel.grid(row=2, column=1, padx=10, pady=10)
 
         for i in myResult:
-            listaLablel.insert(i[0], i[1])
+            listaLablel.insert(i[0],i[1])
+
+        botonEditar = Button(frameListaCategorias, text="Editar Categoria",command=lambda:editarCategorias(listaLablel))
+        botonEditar.grid(row=3, column=1, padx=10, pady=10)
+
+        botonEliminar = Button(frameListaCategorias, text="Eliminar Categoria")
+        botonEliminar.grid(row=3, column=2, padx=10, pady=10)
     except:
         messagebox.showerror("","Error al momento de mostrar las categorias")
+
+def editarCategorias(listaLablel):
+
+    for i in listaLablel.curselection():
+        categoriaSelecionada=listaLablel.get(i)
+
+    ventanaEditrarCategoria = Tk()
+    ventanaEditrarCategoria.title("Editar Categoria")
+
+    frameEditar = Frame(ventanaEditrarCategoria)
+    frameEditar.pack()
+
+    labelEditar= Label(frameEditar, text="Nomebre Categoria")
+    labelEditar.grid(row=1, column=1, padx=10, pady=10)
+
+    nombreEditar = Entry(frameEditar)
+    nombreEditar.grid( row=1, column=2, padx=10, pady=10)
+
+    editarBoton = Button(frameEditar, text="Guardar", command=lambda:editarCategoriaFuncion(ventanaEditrarCategoria,categoriaSelecionada,nombreEditar))
+    editarBoton.grid(row=2, column=1, padx=10, pady=10, columnspan=2)
+
+def editarCategoriaFuncion(ventanaEditrarCategoria,categoriaSelecionada,nombreEditar):
+    try:
+        myBBDD = mysql.connector.connect(
+            host=hostBBDD,
+            user=userBBDD,
+            password=passwordBBDD,
+            database= databaseBBDD
+        )
+        myCursor = myBBDD.cursor()
+        valor = nombreEditar.get()
+
+        myCursor.execute("UPDATE CATEGORIAS SET NOMBRE_CATEGORIA = %s WHERE NOMBRE_CATEGORIA='"+ categoriaSelecionada+"'", (valor,))
+        myBBDD.commit()
+        myCursor.close()
+        myBBDD.close()
+
+        messagebox.showinfo("Base de datos", "La categoria fue editada con éxito")
+
+        ventanaEditrarCategoria.destroy()
+
+    except:
+        messagebox.showerror("Base de datos", "ocurrio un error al guardar el cambio")
