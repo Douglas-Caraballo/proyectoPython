@@ -167,3 +167,24 @@ def eliminarCategoria(listaLablel,categoriasVentana):
 
         except:
             messagebox.showerror("Base de datos", "No se pudo eliminar la categoria '" + categoriaSelecionada +"'")
+
+def categoriasRegistroProductos():
+    try:
+        myBBDD = mysql.connector.connect(
+                host=hostBBDD,
+                user=userBBDD,
+                password=passwordBBDD,
+                database= databaseBBDD
+            )
+        myCursor = myBBDD.cursor()
+
+        myCursor.execute("SELECT * FROM CATEGORIAS")
+
+        myResult = myCursor.fetchall()
+
+        myCursor.close()
+        myBBDD.close()
+        return myResult
+
+    except:
+        return "error"

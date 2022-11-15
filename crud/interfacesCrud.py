@@ -44,8 +44,11 @@ def registrarProducto():
     textCalendar = DateEntry(frameRegistrarVentana, width=18)
     textCalendar.grid(row=4, column=1, padx=10, pady=10)
 
-    textCategoria = Combobox(frameRegistrarVentana, width=18)
+    textCategoria = Combobox(frameRegistrarVentana, width=18,state="readonly")
     textCategoria.grid(row=5, column=1, padx=10, pady=10)
+    listaDeCategorias = consultasBBDD.categoriasRegistroProductos()
+    if(listaDeCategorias != "error"):
+        textCategoria['values'] = listaDeCategorias
 
     textCantidad = Entry(frameRegistrarVentana)
     textCantidad.grid(row=6, column=1, padx=10, pady=10)
