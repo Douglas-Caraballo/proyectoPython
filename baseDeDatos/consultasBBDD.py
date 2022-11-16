@@ -33,7 +33,7 @@ def crearBBDD():
                 CODIGO VARCHAR(30),
                 PRECIO INTEGER,
                 FECHA DATE,
-                CATEGORIA_ID INTEGER,
+                CATEGORIA_ID INTEGER NOT NULL,
                 CANTIDAD INTEGER NOT NULL,
                 CONSTRAINT CATEGORIAS_NOMBRES FOREIGN KEY(CATEGORIA_ID) REFERENCES CATEGORIAS(ID)
                 ON DELETE CASCADE ON UPDATE CASCADE
@@ -56,15 +56,18 @@ def crearCategoria(nombreCategoria):
         myCursor = myBBDD.cursor()
         valor = nombreCategoria.get()
 
-        myCursor.execute("INSERT INTO CATEGORIAS (NOMBRE_CATEGORIA) VALUES(%s)",(valor,))
+        if len(valor):
+            myCursor.execute("INSERT INTO CATEGORIAS (NOMBRE_CATEGORIA) VALUES(%s)",(valor,))
 
-        myBBDD.commit()
-        myCursor.close()
-        myBBDD.close()
+            myBBDD.commit()
+            myCursor.close()
+            myBBDD.close()
 
-        messagebox.showinfo("Base de Datos", "Se ha agregado la categoria '"+valor+"' de forma exitosa")
+            messagebox.showinfo("Base de Datos", "Se ha agregado la categoria '"+valor+"' de forma exitosa")
 
-        nombreCategoria.delete(0,END)
+            nombreCategoria.delete(0,END)
+        else:
+            messagebox.showerror("", "Los campos no deben estar vacios")
     except:
         messagebox.showerror("Base de Datos", "Ocurrio un error al momento de guardar la categoria")
 
@@ -208,7 +211,7 @@ def registrarProducto(textNombre,textCodigo,textPrecio,textCalendar,textCategori
         myCursor.close()
         myBBDD.close()
 
-        continuarRegistros=messagebox.askquestion("", "El producto '"+textNombre.get()+"' se ha registrado. ¿Desea registrar orto?")
+        continuarRegistros=messagebox.askquestion("", "El producto '"+textNombre.get()+"' se ha registrado. ¿Desea registrar otro?")
         if continuarRegistros == "yes":
             limpiarCamposProductos(textNombre,textCodigo,textPrecio,textCantidad)
         else:
