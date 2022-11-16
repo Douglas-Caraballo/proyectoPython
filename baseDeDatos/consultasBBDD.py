@@ -57,15 +57,18 @@ def crearCategoria(nombreCategoria):
         valor = nombreCategoria.get()
 
         if len(valor):
-            myCursor.execute("INSERT INTO CATEGORIAS (NOMBRE_CATEGORIA) VALUES(%s)",(valor,))
+            if valor[0] != " ":
+                myCursor.execute("INSERT INTO CATEGORIAS (NOMBRE_CATEGORIA) VALUES(%s)",(valor,))
 
-            myBBDD.commit()
-            myCursor.close()
-            myBBDD.close()
+                myBBDD.commit()
+                myCursor.close()
+                myBBDD.close()
 
-            messagebox.showinfo("Base de Datos", "Se ha agregado la categoria '"+valor+"' de forma exitosa")
+                messagebox.showinfo("Base de Datos", "Se ha agregado la categoria '"+valor+"' de forma exitosa")
 
-            nombreCategoria.delete(0,END)
+                nombreCategoria.delete(0,END)
+            else:
+                messagebox.showerror("","No puedes guardar un elemento con espacio en blanco antes del contenido")
         else:
             messagebox.showerror("", "Los campos no deben estar vacios")
     except:
