@@ -57,10 +57,10 @@ def registrarProducto():
     frameBotonesRegistro = Frame(registrarVentana)
     frameBotonesRegistro.pack()
 
-    botonRegistrar = Button(frameBotonesRegistro, text= "Registrar")
+    botonRegistrar = Button(frameBotonesRegistro, text= "Registrar", command=lambda:consultasBBDD.registrarProducto(textNombre,textCodigo,textPrecio,textCalendar,textCategoria,textCantidad,registrarVentana))
     botonRegistrar.grid(row=1, column=1, padx=10, pady=10)
 
-    botonLimiar = Button(frameBotonesRegistro, text="Limpiar Campos")
+    botonLimiar = Button(frameBotonesRegistro, text="Limpiar Campos", command=lambda:consultasBBDD.limpiarCamposProductos(textNombre,textCodigo,textPrecio,textCantidad))
     botonLimiar.grid(row=1, column=2, padx=10, pady=10)
 
     registrarVentana.mainloop()

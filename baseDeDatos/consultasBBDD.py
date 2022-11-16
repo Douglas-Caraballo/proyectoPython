@@ -188,3 +188,38 @@ def categoriasRegistroProductos():
 
     except:
         return "error"
+
+def registrarProducto(textNombre,textCodigo,textPrecio,textCalendar,textCategoria,textCantidad,registrarVentana):
+    categoria = [int(categoria) for categoria in str.split(textCategoria.get()) if categoria.isdigit()]
+    for c in categoria:
+        idCategoria = c
+    try:
+        myBBDD = mysql.connector.connect(
+                host=hostBBDD,
+                user=userBBDD,
+                password=passwordBBDD,
+                database= databaseBBDD
+            )
+        myCursor = myBBDD.cursor()
+        valor = [textNombre.get(), textCodigo.get(), float(textPrecio.get()), str(textCalendar.get_date()), idCategoria, int(textCantidad.get())]
+
+        myCursor.execute("INSERT INTO PRODUCTOS (NOMBRE_PRODUCTO, CODIGO, PRECIO, FECHA, CATEGORIA_ID, CANTIDAD) VALUES (%s, %s, %s, %s, %s, %s)", (valor))
+        myBBDD.commit()
+        myCursor.close()
+        myBBDD.close()
+
+        continuarRegistros=messagebox.askquestion("", "El producto '"+textNombre.get()+"' se ha registrado. ¿Desea registrar orto?")
+        if continuarRegistros == "yes":
+            limpiarCamposProductos(textNombre,textCodigo,textPrecio,textCantidad)
+        else:
+            registrarVentana.destroy()
+    except ValueError:
+        messagebox.showerror("","Los valores para la cantidad y precio deben ser numericos")
+    except:
+        messagebox.showerror("","Se produjo un error al momento de registrar")
+
+def limpiarCamposProductos(textNombre,textCodigo,textPrecio,textCantidad):
+    textNombre.delete(0,END)
+    textCodigo.delete(0,END)
+    textPrecio.delete(0,END)
+    textCantidad.delete(0,END)
