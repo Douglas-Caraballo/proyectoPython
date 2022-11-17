@@ -30,7 +30,7 @@ def crearBBDD():
             CREATE TABLE PRODUCTOS(
                 ID INTEGER PRIMARY KEY AUTO_INCREMENT,
                 NOMBRE_PRODUCTO VARCHAR(30),
-                CODIGO VARCHAR(30),
+                CODIGO VARCHAR(30) UNIQUE,
                 PRECIO INTEGER,
                 FECHA DATE,
                 CATEGORIA_ID INTEGER NOT NULL,
@@ -116,7 +116,7 @@ def editarCategorias(listaLablel):
     frameEditar = Frame(ventanaEditrarCategoria)
     frameEditar.pack()
 
-    labelEditar= Label(frameEditar, text="Nomebre Categoria")
+    labelEditar= Label(frameEditar, text="Nombre Categoria")
     labelEditar.grid(row=1, column=1, padx=10, pady=10)
 
     nombreEditar = Entry(frameEditar)
@@ -126,27 +126,33 @@ def editarCategorias(listaLablel):
     editarBoton.grid(row=2, column=1, padx=10, pady=10, columnspan=2)
 
 def editarCategoriaFuncion(ventanaEditrarCategoria,categoriaSelecionada,nombreEditar):
-    try:
-        myBBDD = mysql.connector.connect(
-            host=hostBBDD,
-            user=userBBDD,
-            password=passwordBBDD,
-            database= databaseBBDD
-        )
-        myCursor = myBBDD.cursor()
-        valor = nombreEditar.get()
+    if len(nombreEditar.get()):
+        if nombreEditar.get()[0] != ' ':
+            try:
+                myBBDD = mysql.connector.connect(
+                    host=hostBBDD,
+                    user=userBBDD,
+                    password=passwordBBDD,
+                    database= databaseBBDD
+                )
+                myCursor = myBBDD.cursor()
+                valor = nombreEditar.get()
 
-        myCursor.execute("UPDATE CATEGORIAS SET NOMBRE_CATEGORIA = %s WHERE NOMBRE_CATEGORIA='"+ categoriaSelecionada+"'", (valor,))
-        myBBDD.commit()
-        myCursor.close()
-        myBBDD.close()
+                myCursor.execute("UPDATE CATEGORIAS SET NOMBRE_CATEGORIA = %s WHERE NOMBRE_CATEGORIA='"+ categoriaSelecionada+"'", (valor,))
+                myBBDD.commit()
+                myCursor.close()
+                myBBDD.close()
 
-        messagebox.showinfo("Base de datos", "La categoria fue editada con éxito")
+                messagebox.showinfo("Base de datos", "La categoria fue editada con éxito")
 
-        ventanaEditrarCategoria.destroy()
+                ventanaEditrarCategoria.destroy()
 
-    except:
-        messagebox.showerror("Base de datos", "ocurrio un error al guardar el cambio")
+            except:
+                messagebox.showerror("Base de datos", "Ocurrio un error al guardar el cambio")
+        else:
+            messagebox.showerror("","No puede haber espacios en blanco antes del contenido")
+    else:
+        messagebox.showerror("", "El campo nombre no debe estar en blanco")
 
 def eliminarCategoria(listaLablel,categoriasVentana):
     for i in listaLablel.curselection():
@@ -199,30 +205,36 @@ def registrarProducto(textNombre,textCodigo,textPrecio,textCalendar,textCategori
     categoria = [int(categoria) for categoria in str.split(textCategoria.get()) if categoria.isdigit()]
     for c in categoria:
         idCategoria = c
-    try:
-        myBBDD = mysql.connector.connect(
-                host=hostBBDD,
-                user=userBBDD,
-                password=passwordBBDD,
-                database= databaseBBDD
-            )
-        myCursor = myBBDD.cursor()
-        valor = [textNombre.get(), textCodigo.get(), float(textPrecio.get()), str(textCalendar.get_date()), idCategoria, int(textCantidad.get())]
+    if len(textNombre.get()) and len(textCodigo.get()):
+        if textNombre.get()[0] != ' ' and textCodigo.get()[0] != ' ':
+            try:
+                myBBDD = mysql.connector.connect(
+                        host=hostBBDD,
+                        user=userBBDD,
+                        password=passwordBBDD,
+                        database= databaseBBDD
+                    )
+                myCursor = myBBDD.cursor()
+                valor = [textNombre.get(), textCodigo.get(), float(textPrecio.get()), str(textCalendar.get_date()), idCategoria, int(textCantidad.get())]
 
-        myCursor.execute("INSERT INTO PRODUCTOS (NOMBRE_PRODUCTO, CODIGO, PRECIO, FECHA, CATEGORIA_ID, CANTIDAD) VALUES (%s, %s, %s, %s, %s, %s)", (valor))
-        myBBDD.commit()
-        myCursor.close()
-        myBBDD.close()
+                myCursor.execute("INSERT INTO PRODUCTOS (NOMBRE_PRODUCTO, CODIGO, PRECIO, FECHA, CATEGORIA_ID, CANTIDAD) VALUES (%s, %s, %s, %s, %s, %s)", (valor))
+                myBBDD.commit()
+                myCursor.close()
+                myBBDD.close()
 
-        continuarRegistros=messagebox.askquestion("", "El producto '"+textNombre.get()+"' se ha registrado. ¿Desea registrar otro?")
-        if continuarRegistros == "yes":
-            limpiarCamposProductos(textNombre,textCodigo,textPrecio,textCantidad)
+                continuarRegistros=messagebox.askquestion("", "El producto '"+textNombre.get()+"' se ha registrado. ¿Desea registrar otro?")
+                if continuarRegistros == "yes":
+                    limpiarCamposProductos(textNombre,textCodigo,textPrecio,textCantidad)
+                else:
+                    registrarVentana.destroy()
+            except ValueError:
+                messagebox.showerror("","Los valores para la cantidad y precio deben ser numericos")
+            except:
+                messagebox.showerror("","Se produjo un error al momento de registrar")
         else:
-            registrarVentana.destroy()
-    except ValueError:
-        messagebox.showerror("","Los valores para la cantidad y precio deben ser numericos")
-    except:
-        messagebox.showerror("","Se produjo un error al momento de registrar")
+            messagebox.showerror("", "No se puede registrar la el elemento con un espacio en blanco al comienzo")
+    else:
+        messagebox.showerror("","No se pueden hacer registro en blanco")
 
 def limpiarCamposProductos(textNombre,textCodigo,textPrecio,textCantidad):
     textNombre.delete(0,END)
