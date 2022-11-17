@@ -73,7 +73,28 @@ def listaDeProducto():
     frameBuscar = Frame(ventanaListaProductos)
     frameBuscar.pack()
 
+    labelBuscarNombre = Label(frameBuscar, text="Nombre o Codigo")
+    labelBuscarNombre.grid(row=1,column=2, padx=10, pady=10)
 
+    textNombresProducto = Entry(frameBuscar)
+    textNombresProducto.grid(row=1, column=3, padx=10, pady=10)
+
+    botonBuscar = Button(frameBuscar, text="Buscar")
+    botonBuscar.grid(row=1, column=4, padx=10, pady=10)
+
+    frameListaProductos = Frame(ventanaListaProductos)
+    frameListaProductos.pack()
+
+    productosLista = Listbox(frameListaProductos, width=45)
+    productosLista.grid(row=1, column=1, padx=10, pady=10, columnspan=2)
+    scrolVert = Scrollbar(frameListaProductos, command= productosLista.yview)
+    scrolVert.grid(row=1, column=3, padx=5, pady=10, sticky="nsew")
+
+    botonEditarRegistro = Button(frameListaProductos, text="Editar")
+    botonEditarRegistro.grid(row=2, column=1, padx=10, pady=10)
+
+    botonEliminarRegistro = Button(frameListaProductos, text="Eliminar")
+    botonEliminarRegistro.grid(row=2, column=2, padx=10, pady=10)
 
 
 
