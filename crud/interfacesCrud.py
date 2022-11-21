@@ -96,6 +96,15 @@ def listaDeProducto():
     botonEliminarRegistro = Button(frameListaProductos, text="Eliminar")
     botonEliminarRegistro.grid(row=2, column=2, padx=10, pady=10)
 
+    registros= consultasBBDD.leerProductos()
+
+    if registros!= "Error":
+        for i in registros:
+            productosLista.insert(END, i)
+
+    else:
+        messagebox.showerror("", "Ocurrio un error al momento de mostrar los elementos")
+
 
 
     ventanaListaProductos.mainloop

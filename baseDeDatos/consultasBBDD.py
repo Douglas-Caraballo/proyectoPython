@@ -6,6 +6,8 @@ hostBBDD = "localhost"
 userBBDD = "root"
 passwordBBDD = ""
 databaseBBDD = "PYTHONSYSTEM"
+tableUne = "PRODUCTOS"
+tableTwo = "CATEGORIAS"
 
 def crearBBDD():
     try:
@@ -241,3 +243,21 @@ def limpiarCamposProductos(textNombre,textCodigo,textPrecio,textCantidad):
     textCodigo.delete(0,END)
     textPrecio.delete(0,END)
     textCantidad.delete(0,END)
+
+def leerProductos():
+    try:
+        myBBDD = mysql.connector.connect(
+            host=hostBBDD,
+            user=userBBDD,
+            password=passwordBBDD,
+            database= databaseBBDD
+        )
+        myCursor = myBBDD.cursor()
+        myCursor.execute("SELECT A.ID, A.NOMBRE_PRODUCTO, A.CODIGO, A.PRECIO, B.NOMBRE_CATEGORIA FROM "+tableUne+" AS A JOIN "+tableTwo+" AS B ON A.CATEGORIA_ID = B.ID ORDER BY A.FECHA ")
+
+        myResult = myCursor.fetchall()
+
+        return myResult
+    except:
+
+        return "Error"
