@@ -253,8 +253,7 @@ def leerProductos():
             database= databaseBBDD
         )
         myCursor = myBBDD.cursor()
-        myCursor.execute("SELECT A.ID, A.NOMBRE_PRODUCTO, A.CODIGO, A.PRECIO, B.NOMBRE_CATEGORIA FROM "+tableUne+" AS A JOIN "+tableTwo+" AS B ON A.CATEGORIA_ID = B.ID ORDER BY A.FECHA ")
-
+        myCursor.execute("SELECT ID, NOMBRE_PRODUCTO FROM "+tableUne)
         myResult = myCursor.fetchall()
 
         return myResult

@@ -86,15 +86,18 @@ def listaDeProducto():
     frameListaProductos.pack()
 
     productosLista = Listbox(frameListaProductos, width=45)
-    productosLista.grid(row=1, column=1, padx=10, pady=10, columnspan=2)
+    productosLista.grid(row=1, column=1, padx=10, pady=10, columnspan=3)
     scrolVert = Scrollbar(frameListaProductos, command= productosLista.yview)
-    scrolVert.grid(row=1, column=3, padx=5, pady=10, sticky="nsew")
+    scrolVert.grid(row=1, column=4, padx=5, pady=10, sticky="nsew")
+
+    botonLeer = Button(frameListaProductos, text= "Ver detalles")
+    botonLeer.grid(row=2, column=1, padx=10, pady=10)
 
     botonEditarRegistro = Button(frameListaProductos, text="Editar")
-    botonEditarRegistro.grid(row=2, column=1, padx=10, pady=10)
+    botonEditarRegistro.grid(row=2, column=2, padx=10, pady=10)
 
     botonEliminarRegistro = Button(frameListaProductos, text="Eliminar")
-    botonEliminarRegistro.grid(row=2, column=2, padx=10, pady=10)
+    botonEliminarRegistro.grid(row=2, column=3, padx=10, pady=10)
 
     registros= consultasBBDD.leerProductos()
 
