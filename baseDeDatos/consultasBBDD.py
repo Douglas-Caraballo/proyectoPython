@@ -260,3 +260,77 @@ def leerProductos():
     except:
 
         return "Error"
+
+def verProducto(productosLista):
+    for i in productosLista.curselection():
+        productoSeleccionado = productosLista.get(i)
+
+    producto = productoSeleccionado[0]
+
+    myBBDD = mysql.connector.connect(
+                        host=hostBBDD,
+                        user=userBBDD,
+                        password=passwordBBDD,
+                        database= databaseBBDD
+                    )
+
+    myCursor = myBBDD.cursor()
+
+    myCursor.execute("SELECT A.ID, A.NOMBRE_PRODUCTO, A.CODIGO, A.PRECIO, A.FECHA, B.NOMBRE_CATEGORIA, A.CANTIDAD FROM "+tableUne+" AS A JOIN "+tableTwo+" AS B ON A.CATEGORIA_ID = B.ID WHERE A.ID ="+str(producto))
+
+    myResult = myCursor.fetchall()
+
+    ventanaVer = Tk()
+    ventanaVer.title("Producto")
+
+    frameVer = Frame(ventanaVer)
+    frameVer.pack()
+
+    labelID = Label(frameVer, text="ID")
+    labelID.grid(row=1, column=1,padx=10, pady=10)
+
+    labelNombre = Label(frameVer, text="Nombre")
+    labelNombre.grid(row=2, column=1, padx=10, pady=10)
+
+    lablelCodigo = Label(frameVer, text="Codigo")
+    lablelCodigo.grid(row=3, column=1, padx=10, pady=10)
+
+    labelPrecio = Label(frameVer, text="Precio")
+    labelPrecio.grid(row=4, column=1, padx=10, pady=10)
+
+    labelFecha = Label(frameVer, text="Fecha de registro")
+    labelFecha.grid(row=5, column=1, padx=10, pady=10)
+
+    labelCategoria = Label(frameVer, text="Categoria")
+    labelCategoria.grid(row=6, column=1, padx=10, pady=10)
+
+    labelCantidad = Label(frameVer, text="Cantidad")
+    labelCantidad.grid(row=7, column=1, padx=10, pady=10)
+
+    textID = Entry(frameVer,justify=CENTER)
+    textID.insert(0,myResult[0][0])
+    textID.grid(row=1, column=2, padx=10, pady=10)
+
+    textNombre = Entry(frameVer,justify=CENTER)
+    textNombre.insert(0,myResult[0][1])
+    textNombre.grid(row=2, column=2, padx=10, pady=10)
+
+    textCodigo = Entry(frameVer, justify=CENTER)
+    textCodigo.insert(0, myResult[0][2])
+    textCodigo.grid(row=3, column=2, padx=10, pady=10)
+
+    textPrecio = Entry(frameVer, justify=CENTER)
+    textPrecio.insert(0,myResult[0][3])
+    textPrecio.grid(row=4, column=2, padx=10, pady=10)
+
+    textFecha = Entry(frameVer, justify=CENTER)
+    textFecha.insert(0, myResult[0][4])
+    textFecha.grid(row=5, column=2, padx=10, pady=10)
+
+    textCategoria = Entry(frameVer, justify=CENTER)
+    textCategoria.insert(0, myResult[0][5])
+    textCategoria.grid(row=6, column=2, padx=10, pady=10)
+
+    textCantidad = Entry(frameVer, justify=CENTER)
+    textCantidad.insert(0, myResult[0][6])
+    textCantidad.grid(row=7, column=2, padx=10, pady=10)

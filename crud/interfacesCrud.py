@@ -12,8 +12,6 @@ def registrarProducto():
     frameRegistrarVentana = Frame(registrarVentana)
     frameRegistrarVentana.pack()
 
-
-
     labelNombre = Label(frameRegistrarVentana, text="Nombre")
     labelNombre.grid(row=1, column=0, sticky="W", padx=10, pady=10)
 
@@ -90,7 +88,7 @@ def listaDeProducto():
     scrolVert = Scrollbar(frameListaProductos, command= productosLista.yview)
     scrolVert.grid(row=1, column=4, padx=5, pady=10, sticky="nsew")
 
-    botonLeer = Button(frameListaProductos, text= "Ver detalles")
+    botonLeer = Button(frameListaProductos, text= "Ver detalles", command=lambda:consultasBBDD.verProducto(productosLista))
     botonLeer.grid(row=2, column=1, padx=10, pady=10)
 
     botonEditarRegistro = Button(frameListaProductos, text="Editar")
@@ -108,10 +106,7 @@ def listaDeProducto():
     else:
         messagebox.showerror("", "Ocurrio un error al momento de mostrar los elementos")
 
-
-
-    ventanaListaProductos.mainloop
-
+    ventanaListaProductos.mainloop()
 
 def salir(raiz):
 
