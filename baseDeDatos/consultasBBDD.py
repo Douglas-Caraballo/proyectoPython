@@ -266,71 +266,135 @@ def verProducto(productosLista):
         productoSeleccionado = productosLista.get(i)
 
     producto = productoSeleccionado[0]
+    try:
+        myBBDD = mysql.connector.connect(
+                            host=hostBBDD,
+                            user=userBBDD,
+                            password=passwordBBDD,
+                            database= databaseBBDD
+                        )
 
-    myBBDD = mysql.connector.connect(
-                        host=hostBBDD,
-                        user=userBBDD,
-                        password=passwordBBDD,
-                        database= databaseBBDD
-                    )
+        myCursor = myBBDD.cursor()
 
-    myCursor = myBBDD.cursor()
+        myCursor.execute("SELECT A.ID, A.NOMBRE_PRODUCTO, A.CODIGO, A.PRECIO, A.FECHA, B.NOMBRE_CATEGORIA, A.CANTIDAD FROM "+tableUne+" AS A JOIN "+tableTwo+" AS B ON A.CATEGORIA_ID = B.ID WHERE A.ID ="+str(producto))
 
-    myCursor.execute("SELECT A.ID, A.NOMBRE_PRODUCTO, A.CODIGO, A.PRECIO, A.FECHA, B.NOMBRE_CATEGORIA, A.CANTIDAD FROM "+tableUne+" AS A JOIN "+tableTwo+" AS B ON A.CATEGORIA_ID = B.ID WHERE A.ID ="+str(producto))
+        myResult = myCursor.fetchall()
 
-    myResult = myCursor.fetchall()
+        ventanaVer = Tk()
+        ventanaVer.title("Producto")
 
-    ventanaVer = Tk()
-    ventanaVer.title("Producto")
+        frameVer = Frame(ventanaVer)
+        frameVer.pack()
 
-    frameVer = Frame(ventanaVer)
-    frameVer.pack()
+        labelID = Label(frameVer, text="ID")
+        labelID.grid(row=1, column=1,padx=10, pady=10)
 
-    labelID = Label(frameVer, text="ID")
-    labelID.grid(row=1, column=1,padx=10, pady=10)
+        labelNombre = Label(frameVer, text="Nombre")
+        labelNombre.grid(row=2, column=1, padx=10, pady=10)
 
-    labelNombre = Label(frameVer, text="Nombre")
-    labelNombre.grid(row=2, column=1, padx=10, pady=10)
+        lablelCodigo = Label(frameVer, text="Codigo")
+        lablelCodigo.grid(row=3, column=1, padx=10, pady=10)
 
-    lablelCodigo = Label(frameVer, text="Codigo")
-    lablelCodigo.grid(row=3, column=1, padx=10, pady=10)
+        labelPrecio = Label(frameVer, text="Precio")
+        labelPrecio.grid(row=4, column=1, padx=10, pady=10)
 
-    labelPrecio = Label(frameVer, text="Precio")
-    labelPrecio.grid(row=4, column=1, padx=10, pady=10)
+        labelFecha = Label(frameVer, text="Fecha de registro")
+        labelFecha.grid(row=5, column=1, padx=10, pady=10)
 
-    labelFecha = Label(frameVer, text="Fecha de registro")
-    labelFecha.grid(row=5, column=1, padx=10, pady=10)
+        labelCategoria = Label(frameVer, text="Categoria")
+        labelCategoria.grid(row=6, column=1, padx=10, pady=10)
 
-    labelCategoria = Label(frameVer, text="Categoria")
-    labelCategoria.grid(row=6, column=1, padx=10, pady=10)
+        labelCantidad = Label(frameVer, text="Cantidad")
+        labelCantidad.grid(row=7, column=1, padx=10, pady=10)
 
-    labelCantidad = Label(frameVer, text="Cantidad")
-    labelCantidad.grid(row=7, column=1, padx=10, pady=10)
+        textID = Entry(frameVer,justify=CENTER)
+        textID.insert(0,myResult[0][0])
+        textID.grid(row=1, column=2, padx=10, pady=10)
 
-    textID = Entry(frameVer,justify=CENTER)
-    textID.insert(0,myResult[0][0])
-    textID.grid(row=1, column=2, padx=10, pady=10)
+        textNombre = Entry(frameVer,justify=CENTER)
+        textNombre.insert(0,myResult[0][1])
+        textNombre.grid(row=2, column=2, padx=10, pady=10)
 
-    textNombre = Entry(frameVer,justify=CENTER)
-    textNombre.insert(0,myResult[0][1])
-    textNombre.grid(row=2, column=2, padx=10, pady=10)
+        textCodigo = Entry(frameVer, justify=CENTER)
+        textCodigo.insert(0, myResult[0][2])
+        textCodigo.grid(row=3, column=2, padx=10, pady=10)
 
-    textCodigo = Entry(frameVer, justify=CENTER)
-    textCodigo.insert(0, myResult[0][2])
-    textCodigo.grid(row=3, column=2, padx=10, pady=10)
+        textPrecio = Entry(frameVer, justify=CENTER)
+        textPrecio.insert(0,myResult[0][3])
+        textPrecio.grid(row=4, column=2, padx=10, pady=10)
 
-    textPrecio = Entry(frameVer, justify=CENTER)
-    textPrecio.insert(0,myResult[0][3])
-    textPrecio.grid(row=4, column=2, padx=10, pady=10)
+        textFecha = Entry(frameVer, justify=CENTER)
+        textFecha.insert(0, myResult[0][4])
+        textFecha.grid(row=5, column=2, padx=10, pady=10)
 
-    textFecha = Entry(frameVer, justify=CENTER)
-    textFecha.insert(0, myResult[0][4])
-    textFecha.grid(row=5, column=2, padx=10, pady=10)
+        textCategoria = Entry(frameVer, justify=CENTER)
+        textCategoria.insert(0, myResult[0][5])
+        textCategoria.grid(row=6, column=2, padx=10, pady=10)
 
-    textCategoria = Entry(frameVer, justify=CENTER)
-    textCategoria.insert(0, myResult[0][5])
-    textCategoria.grid(row=6, column=2, padx=10, pady=10)
+        textCantidad = Entry(frameVer, justify=CENTER)
+        textCantidad.insert(0, myResult[0][6])
+        textCantidad.grid(row=7, column=2, padx=10, pady=10)
 
-    textCantidad = Entry(frameVer, justify=CENTER)
-    textCantidad.insert(0, myResult[0][6])
-    textCantidad.grid(row=7, column=2, padx=10, pady=10)
+        myCursor.close()
+        myBBDD.close()
+    except:
+        messagebox.showerror("","Ocurrio un error al momento de mostrar los datos")
+
+def consultaProductos(producto):
+
+    try:
+        myBBDD = mysql.connector.connect(
+                                host=hostBBDD,
+                                user=userBBDD,
+                                password=passwordBBDD,
+                                database= databaseBBDD
+                            )
+
+        myCursor = myBBDD.cursor()
+
+        myCursor.execute("SELECT ID, NOMBRE_PRODUCTO, CODIGO, PRECIO, CANTIDAD FROM "+tableUne+" WHERE ID="+str(producto))
+
+        myResult = myCursor.fetchall()
+
+        myCursor.close()
+        myBBDD.close()
+
+        return myResult
+
+    except:
+
+        return "error"
+
+def editarProducto(ventanaEditar,textNombre,textCodigo,textPrecio, textCalendar,textCategoria,textCantidad, ID):
+
+    categoria = [int(categoria) for categoria in str.split(textCategoria.get()) if categoria.isdigit()]
+    for c in categoria:
+        idCategoria = c
+
+    try:
+        valor = [textNombre.get(), textCodigo.get(), float(textPrecio.get()), str(textCalendar.get_date()), idCategoria, int(textCantidad.get())]
+        myBBDD = mysql.connector.connect(
+                                    host=hostBBDD,
+                                    user=userBBDD,
+                                    password=passwordBBDD,
+                                    database= databaseBBDD
+                                )
+
+        myCursor = myBBDD.cursor()
+
+        myCursor.execute("UPDATE "+tableUne+" SET NOMBRE_PRODUCTO = %s, CODIGO = %s , PRECIO = %s, FECHA = %s, CATEGORIA_ID= %s, CANTIDAD=%s WHERE ID="+str(ID),(valor))
+
+        myBBDD.commit()
+
+        messagebox.showinfo("","El registro se actualizo de manera correcta")
+
+        ventanaEditar.destroy()
+
+    except ValueError:
+        messagebox.showerror("","Los valores para la cantidad y precio deben ser numericos")
+
+    except UnboundLocalError:
+        messagebox.showerror("", "Por favor seleccionar una categoria")
+
+    except:
+        messagebox.showerror("","Se produjo un error al momento de actualizar el registro")
