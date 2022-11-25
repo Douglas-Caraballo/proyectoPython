@@ -398,3 +398,40 @@ def editarProducto(ventanaEditar,textNombre,textCodigo,textPrecio, textCalendar,
 
     except:
         messagebox.showerror("","Se produjo un error al momento de actualizar el registro")
+
+def eliminarProducto(ventanaListaProductos,productosLista):
+    for i in productosLista.curselection():
+        productoSeleccionado = productosLista.get(i)
+
+    producto = productoSeleccionado[0]
+    nombre = productoSeleccionado[1]
+
+    myBBDD = mysql.connector.connect(
+                                    host=hostBBDD,
+                                    user=userBBDD,
+                                    password=passwordBBDD,
+                                    database= databaseBBDD
+                                )
+
+    myCursor = myBBDD.cursor()
+
+    eliminar = messagebox.askquestion("", "Desea eliminar el registro '"+nombre+"'? No se podrá recuperar")
+
+    if eliminar == "yes":
+
+        myCursor.execute("DELETE FROM "+tableUne+ " WHERE ID= "+str(producto))
+        myBBDD.commit()
+
+        myCursor.close()
+        myBBDD.close()
+
+        messagebox.showinfo("",nombre+" Fue eliminado con éxito")
+
+        ventanaListaProductos.destroy()
+
+    """
+    try:
+        
+    except:
+        pass
+    """

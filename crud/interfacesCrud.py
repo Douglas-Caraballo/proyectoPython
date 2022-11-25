@@ -94,7 +94,7 @@ def listaDeProducto():
     botonEditarRegistro = Button(frameListaProductos, text="Editar", command=lambda:verParaEditar(productosLista))
     botonEditarRegistro.grid(row=2, column=2, padx=10, pady=10)
 
-    botonEliminarRegistro = Button(frameListaProductos, text="Eliminar")
+    botonEliminarRegistro = Button(frameListaProductos, text="Eliminar", command=lambda:consultasBBDD.eliminarProducto(ventanaListaProductos,productosLista))
     botonEliminarRegistro.grid(row=2, column=3, padx=10, pady=10)
 
     registros= consultasBBDD.leerProductos()
