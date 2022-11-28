@@ -149,63 +149,67 @@ def verParaEditar(productosLista):
     for i in productosLista.curselection():
         productoSeleccionado = productosLista.get(i)
 
-    producto= productoSeleccionado[0]
+    try:
+        producto= productoSeleccionado[0]
 
-    resultado = consultasBBDD.consultaProductos(producto)
+        resultado = consultasBBDD.consultaProductos(producto)
 
-    if resultado != "error":
+        if resultado != "error":
 
-        ventanaEditar = Tk()
-        ventanaEditar.title("Editar")
+            ventanaEditar = Tk()
+            ventanaEditar.title("Editar")
 
-        frameEditar = Frame(ventanaEditar)
-        frameEditar.pack()
+            frameEditar = Frame(ventanaEditar)
+            frameEditar.pack()
 
-        labelNombre = Label(frameEditar, text="Nombre:")
-        labelNombre.grid(row=0, column=0, padx=10, pady=10)
+            labelNombre = Label(frameEditar, text="Nombre:")
+            labelNombre.grid(row=0, column=0, padx=10, pady=10)
 
-        textNombre = Entry(frameEditar, justify=CENTER)
-        textNombre.insert(0, resultado[0][1])
-        textNombre.grid(row=0, column=1, padx=10, pady=10)
+            textNombre = Entry(frameEditar, justify=CENTER)
+            textNombre.insert(0, resultado[0][1])
+            textNombre.grid(row=0, column=1, padx=10, pady=10)
 
-        labelCodigo = Label(frameEditar, text="Codigo:")
-        labelCodigo.grid(row=1, column=0, padx=10, pady=10)
+            labelCodigo = Label(frameEditar, text="Codigo:")
+            labelCodigo.grid(row=1, column=0, padx=10, pady=10)
 
-        textCodigo = Entry(frameEditar, justify=CENTER)
-        textCodigo.insert(0,resultado[0][2])
-        textCodigo.grid(row=1, column=1, padx=10, pady=10)
+            textCodigo = Entry(frameEditar, justify=CENTER)
+            textCodigo.insert(0,resultado[0][2])
+            textCodigo.grid(row=1, column=1, padx=10, pady=10)
 
-        labelPrecio = Label(frameEditar, text="Precio:")
-        labelPrecio.grid(row=2, column=0, padx=10, pady=10)
+            labelPrecio = Label(frameEditar, text="Precio:")
+            labelPrecio.grid(row=2, column=0, padx=10, pady=10)
 
-        textPrecio = Entry(frameEditar, justify=CENTER)
-        textPrecio.insert(0,resultado[0][3])
-        textPrecio.grid(row=2, column=1, padx=10, pady=10)
+            textPrecio = Entry(frameEditar, justify=CENTER)
+            textPrecio.insert(0,resultado[0][3])
+            textPrecio.grid(row=2, column=1, padx=10, pady=10)
 
-        labelFecha = Label(frameEditar, text="Fecha:")
-        labelFecha.grid(row=3,column=0,padx=10, pady=10)
+            labelFecha = Label(frameEditar, text="Fecha:")
+            labelFecha.grid(row=3,column=0,padx=10, pady=10)
 
-        textCalendar = DateEntry(frameEditar, width=18, justify=CENTER)
-        textCalendar.grid(row=3, column=1, padx=10, pady=10)
+            textCalendar = DateEntry(frameEditar, width=18, justify=CENTER)
+            textCalendar.grid(row=3, column=1, padx=10, pady=10)
 
-        labelCategoria = Label(frameEditar, text="Categoria")
-        labelCategoria.grid(row=4, column=0, padx=10, pady=10)
+            labelCategoria = Label(frameEditar, text="Categoria")
+            labelCategoria.grid(row=4, column=0, padx=10, pady=10)
 
-        textCategoria = Combobox(frameEditar,width=18,state="readonly", justify=CENTER)
-        textCategoria.grid(row=4, column=1, padx=10, pady=10)
-        listaDeCategorias = consultasBBDD.categoriasRegistroProductos()
-        if(listaDeCategorias != "error"):
-            textCategoria['values'] = listaDeCategorias
+            textCategoria = Combobox(frameEditar,width=18,state="readonly", justify=CENTER)
+            textCategoria.grid(row=4, column=1, padx=10, pady=10)
+            listaDeCategorias = consultasBBDD.categoriasRegistroProductos()
+            if(listaDeCategorias != "error"):
+                textCategoria['values'] = listaDeCategorias
 
-        labelCantidad = Label(frameEditar, text="Cantidad:")
-        labelCantidad.grid(row=5, column=0, padx=10, pady=10)
+            labelCantidad = Label(frameEditar, text="Cantidad:")
+            labelCantidad.grid(row=5, column=0, padx=10, pady=10)
 
-        textCantidad = Entry(frameEditar, justify=CENTER)
-        textCantidad.insert(0, resultado[0][4])
-        textCantidad.grid(row=5, column=1, padx=10, pady=10)
+            textCantidad = Entry(frameEditar, justify=CENTER)
+            textCantidad.insert(0, resultado[0][4])
+            textCantidad.grid(row=5, column=1, padx=10, pady=10)
 
-        botonEditar=Button(frameEditar, text="Actualizar", command=lambda:consultasBBDD.editarProducto(ventanaEditar,textNombre,textCodigo,textPrecio, textCalendar,textCategoria,textCantidad,resultado[0][0]))
-        botonEditar.grid(row=6, column=0, columnspan=2, padx=10, pady=10)
+            botonEditar=Button(frameEditar, text="Actualizar", command=lambda:consultasBBDD.editarProducto(ventanaEditar,textNombre,textCodigo,textPrecio, textCalendar,textCategoria,textCantidad,resultado[0][0]))
+            botonEditar.grid(row=6, column=0, columnspan=2, padx=10, pady=10)
 
-    else:
-        messagebox.showerror("","Error al cargar los datos")
+        else:
+            messagebox.showerror("","Error al cargar los datos")
+
+    except UnboundLocalError:
+        messagebox.showerror("","Por favor seleccione un producto")

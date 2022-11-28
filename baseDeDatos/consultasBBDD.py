@@ -265,8 +265,8 @@ def verProducto(productosLista):
     for i in productosLista.curselection():
         productoSeleccionado = productosLista.get(i)
 
-    producto = productoSeleccionado[0]
     try:
+        producto = productoSeleccionado[0]
         myBBDD = mysql.connector.connect(
                             host=hostBBDD,
                             user=userBBDD,
@@ -337,6 +337,9 @@ def verProducto(productosLista):
 
         myCursor.close()
         myBBDD.close()
+
+    except UnboundLocalError:
+        messagebox.showerror("", "Por favor seleccionar un producto")
     except:
         messagebox.showerror("","Ocurrio un error al momento de mostrar los datos")
 
