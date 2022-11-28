@@ -403,35 +403,35 @@ def eliminarProducto(ventanaListaProductos,productosLista):
     for i in productosLista.curselection():
         productoSeleccionado = productosLista.get(i)
 
-    producto = productoSeleccionado[0]
-    nombre = productoSeleccionado[1]
-
-    myBBDD = mysql.connector.connect(
-                                    host=hostBBDD,
-                                    user=userBBDD,
-                                    password=passwordBBDD,
-                                    database= databaseBBDD
-                                )
-
-    myCursor = myBBDD.cursor()
-
-    eliminar = messagebox.askquestion("", "Desea eliminar el registro '"+nombre+"'? No se podrá recuperar")
-
-    if eliminar == "yes":
-
-        myCursor.execute("DELETE FROM "+tableUne+ " WHERE ID= "+str(producto))
-        myBBDD.commit()
-
-        myCursor.close()
-        myBBDD.close()
-
-        messagebox.showinfo("",nombre+" Fue eliminado con éxito")
-
-        ventanaListaProductos.destroy()
-
-    """
     try:
-        
+        producto = productoSeleccionado[0]
+        nombre = productoSeleccionado[1]
+
+        myBBDD = mysql.connector.connect(
+                                        host=hostBBDD,
+                                        user=userBBDD,
+                                        password=passwordBBDD,
+                                        database= databaseBBDD
+                                    )
+
+        myCursor = myBBDD.cursor()
+
+        eliminar = messagebox.askquestion("", "Desea eliminar el registro '"+nombre+"'? No se podrá recuperar")
+
+        if eliminar == "yes":
+
+            myCursor.execute("DELETE FROM "+tableUne+ " WHERE ID= "+str(producto))
+            myBBDD.commit()
+
+            myCursor.close()
+            myBBDD.close()
+
+            messagebox.showinfo("",nombre+" Fue eliminado con éxito")
+
+            ventanaListaProductos.destroy()
+
+    except UnboundLocalError:
+        messagebox.showerror("", "Por favor seleccione un producto para eliminar")
+
     except:
-        pass
-    """
+        messagebox.showerror("", "Ocurrio un problema al momento de eliminar")
