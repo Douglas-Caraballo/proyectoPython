@@ -112,7 +112,7 @@ def editarCategorias(listaLablel):
     for i in listaLablel.curselection():
         categoriaSelecionada=listaLablel.get(i)
 
-    ventanaEditrarCategoria = Tk()
+    ventanaEditrarCategoria = Toplevel()
     ventanaEditrarCategoria.title("Editar Categoria")
 
     frameEditar = Frame(ventanaEditrarCategoria)
@@ -280,7 +280,7 @@ def verProducto(productosLista):
 
         myResult = myCursor.fetchall()
 
-        ventanaVer = Tk()
+        ventanaVer = Toplevel()
         ventanaVer.title("Producto")
 
         frameVer = Frame(ventanaVer)

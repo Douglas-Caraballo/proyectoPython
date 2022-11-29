@@ -5,7 +5,7 @@ from tkcalendar import DateEntry
 from baseDeDatos import consultasBBDD
 
 def registrarProducto():
-    registrarVentana = Tk()
+    registrarVentana = Toplevel()
     registrarVentana.title("Registar producto")
 
 #------------ Frame Formulario ---------------------
@@ -65,7 +65,7 @@ def registrarProducto():
 
 def listaDeProducto():
 
-    ventanaListaProductos = Tk()
+    ventanaListaProductos = Toplevel()
     ventanaListaProductos.title("Lista de productos")
 
     frameBuscar = Frame(ventanaListaProductos)
@@ -117,7 +117,7 @@ def salir(raiz):
         raiz.destroy()
 
 def registrarCategorias():
-    categoriasVentana = Tk()
+    categoriasVentana = Toplevel()
     categoriasVentana.title("Categorias")
 
     frameRegistroCategorias = Frame(categoriasVentana)
@@ -156,7 +156,7 @@ def verParaEditar(productosLista):
 
         if resultado != "error":
 
-            ventanaEditar = Tk()
+            ventanaEditar = Toplevel()
             ventanaEditar.title("Editar")
 
             frameEditar = Frame(ventanaEditar)
