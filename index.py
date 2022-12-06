@@ -1,6 +1,7 @@
 from tkinter import *
 from baseDeDatos import consultasBBDD
 from crud import interfacesCrud
+from crud import generarReportes
 
 raiz = Tk()
 
@@ -35,7 +36,7 @@ botonCategorias.grid(row=3, column=1, sticky="w")
 botonLista = Button(frameMenu, text="Lista de Productos", relief="flat", command=lambda:interfacesCrud.listaDeProducto())
 botonLista.grid(row=4,column=1, sticky="W")
 
-botonReportes = Button(frameMenu, text="Reportes",width=15,relief="flat")
+botonReportes = Button(frameMenu, text="Reportes",width=15,relief="flat", command=lambda:generarReportes.reporte())
 botonReportes.grid(row=5, column=1,sticky="W")
 
 botonSalir = Button(frameMenu, text="Salir", width=15, relief="flat", command=lambda:interfacesCrud.salir(raiz))
