@@ -9,3 +9,24 @@ Cuenta con conexion a una base de datos en MySQL
 
 - [Douglas Caraballo](https://github.com/Douglas-Caraballo)
 - [Karla Silveira](https://github.com/KarliFran)
+
+## Librerias
+
+Al momento de editar el codigo del sistena.
+
+El sistema funciona con una serie de librerias que no estan en el python por defecto
+
+- MySQL Conector
+```
+    pip install mysql-connector-python
+```
+
+- Tk Calendar
+```
+    pip install tkcalendar
+```
+
+- ReportLab
+```
+    pip install reportlab
+```
