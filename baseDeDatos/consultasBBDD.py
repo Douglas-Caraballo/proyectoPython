@@ -438,3 +438,28 @@ def eliminarProducto(ventanaListaProductos,productosLista):
 
     except:
         messagebox.showerror("", "Ocurrio un problema al momento de eliminar")
+
+def consultaReportes():
+
+    try:
+
+        myBBDD = mysql.connector.connect(
+                host=hostBBDD,
+                user=userBBDD,
+                password=passwordBBDD,
+                database= databaseBBDD
+        )
+
+        myCursor = myBBDD.cursor()
+
+        myCursor.execute("SELECT P.NOMBRE_PRODUCTO, P.CODIGO, P.PRECIO, P.FECHA, C.NOMBRE_CATEGORIA, P.CANTIDAD FROM "+tableUne+" AS P INNER JOIN "+tableTwo+ " AS C ON P.CATEGORIA_ID = C.ID")
+
+        myResult = myCursor.fetchall()
+
+        myCursor.close()
+        myBBDD.close()
+
+        return myResult
+
+    except:
+        return "Error"
