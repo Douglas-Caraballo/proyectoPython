@@ -17,6 +17,24 @@ def verificacionRuta():
 
         return ruta
 
+def header(lienzo):
+
+    logo = "./img/DK-logo.png"
+
+    if os.path.exists(logo):
+            lienzo.drawImage(logo,inch,10.3*inch, 100,100,mask="auto")
+
+    lienzo.setLineWidth(0.3)
+    lienzo.drawString(250, 10.8*inch, "Reportes de articulos")
+    lienzo.line(230,10.7*inch,380,10.7*inch)
+    lienzo.drawString(inch, 9.8*inch, "Producuto")
+    lienzo.drawString(2.4*inch,9.8*inch, "Codigo")
+    lienzo.drawString(3.4*inch,9.8*inch, "Precio" )
+    lienzo.drawString(4.5*inch,9.8*inch, "Fecha")
+    lienzo.drawString(5.4*inch,9.8*inch, "Categoria")
+    lienzo.drawString(6.5*inch,9.8*inch, "Cantidad")
+
+
 
 def reporte():
 
@@ -30,17 +48,9 @@ def reporte():
     outfillepath = os.path.join(filledir, fillName)
 
     lienzo = canvas.Canvas(outfillepath)
-    posisionY = 10*inch
+    posisionY = 9.3*inch
 
-    lienzo.setLineWidth(0.3)
-    lienzo.drawString(250, 800, "Reportes de articulos")
-    lienzo.line(230,790,380,790)
-    lienzo.drawString(inch, 10.5*inch, "Producuto")
-    lienzo.drawString(2.4*inch,10.5*inch, "Codigo")
-    lienzo.drawString(3.4*inch,10.5*inch, "Precio" )
-    lienzo.drawString(4.5*inch,10.5*inch, "Fecha")
-    lienzo.drawString(5.4*inch,10.5*inch, "Categoria")
-    lienzo.drawString(6.5*inch,10.5*inch, "Cantidad")
+    header(lienzo)
 
     if datos != "Error":
         for i in datos:
