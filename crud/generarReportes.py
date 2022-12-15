@@ -63,6 +63,11 @@ def reporte():
             posisionY = posisionY-(0.4*inch)
 
 
+    total = consultasBBDD.totales()
+
+    lienzo.drawString(inch, inch, "Cantidad: "+str(total[0][0][0]))
+    lienzo.drawString(3.5*inch, inch, "Registros: "+str(total[1][0][0]))
+    lienzo.drawString(5.5*inch, inch, "Valor total: "+str(total[2][0][0])+"$")
     lienzo.showPage()
     lienzo.save()
 

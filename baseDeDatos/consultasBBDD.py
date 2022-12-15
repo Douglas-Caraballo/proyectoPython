@@ -33,7 +33,7 @@ def crearBBDD():
                 ID INTEGER PRIMARY KEY AUTO_INCREMENT,
                 NOMBRE_PRODUCTO VARCHAR(30),
                 CODIGO VARCHAR(30) UNIQUE,
-                PRECIO INTEGER,
+                PRECIO DOUBLE,
                 FECHA DATE,
                 CATEGORIA_ID INTEGER NOT NULL,
                 CANTIDAD INTEGER NOT NULL,
@@ -463,3 +463,32 @@ def consultaReportes():
 
     except:
         return "Error"
+
+def totales():
+    myBBDD = mysql.connector.connect(
+        host=hostBBDD,
+        user=userBBDD,
+        password=passwordBBDD,
+        database= databaseBBDD
+    )
+
+    myCursor= myBBDD.cursor()
+
+    myCursor.execute("SELECT SUM(CANTIDAD) FROM "+tableUne)
+
+    cantidadTotal = myCursor.fetchall()
+
+    myCursor.execute("SELECT COUNT(*) FROM "+ tableUne)
+
+    registrosTotal = myCursor.fetchall()
+
+    myCursor.execute("SELECT SUM(PRECIO*CANTIDAD) FROM "+ tableUne)
+
+    precioTotal = myCursor.fetchall()
+
+    myCursor.close()
+    myBBDD.close()
+
+    total = cantidadTotal, registrosTotal, precioTotal
+
+    return total

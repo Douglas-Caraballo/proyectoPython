@@ -24,7 +24,9 @@ barraMenu.add_cascade(label="Ayuda", menu=ayudaMenu)
 frameMenu = Frame(raiz)
 frameMenu.grid(row=0, column=0)
 
-labelLogo = Label(frameMenu,text= "Logo")
+miLogo =PhotoImage(file="img/DK-logo.png")
+
+labelLogo = Label(frameMenu,image=miLogo)
 labelLogo.grid(row=0,column=1,sticky="nsew", padx=10, pady=10)
 
 botonRegistrar = Button(frameMenu, text="Registrar",width=15, relief="flat",command=lambda:interfacesCrud.registrarProducto())
