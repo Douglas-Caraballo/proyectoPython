@@ -143,7 +143,20 @@ def registrarCategorias():
     labelCategorias = Label(frameListaCategorias, text="Categorias:")
     labelCategorias.grid(row=1,column=1,pady=10,sticky="nesw")
 
-    consultasBBDD.listaCategorias(frameListaCategorias,categoriasVentana)
+    listaLablel = Listbox(frameListaCategorias,width=40)
+    listaLablel.grid(row=2, column=1, padx=10, pady=10, columnspan=2)
+
+    lista= consultasBBDD.listaCategorias()
+
+    for i in lista:
+        listaLablel.insert(i[0],i[1])
+
+    botonEditar = Button(frameListaCategorias, text="Editar Categoria",command=lambda:consultasBBDD.editarCategorias(listaLablel))
+    botonEditar.grid(row=3, column=1, padx=10, pady=10)
+
+    botonEliminar = Button(frameListaCategorias, text="Eliminar Categoria", command=lambda:consultasBBDD.eliminarCategoria(listaLablel,categoriasVentana))
+    botonEliminar.grid(row=3, column=2, padx=10, pady=10)
+
 
 def verParaEditar(productosLista):
     for i in productosLista.curselection():

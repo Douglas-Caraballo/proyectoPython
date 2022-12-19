@@ -79,7 +79,7 @@ def crearCategoria(nombreCategoria):
 def limpiarCategoria(nombreCategoria):
     nombreCategoria.delete(0,END)
 
-def listaCategorias(frameListaCategorias,categoriasVentana):
+def listaCategorias():
     try:
         myBBDD = mysql.connector.connect(
             host = hostBBDD,
@@ -93,39 +93,40 @@ def listaCategorias(frameListaCategorias,categoriasVentana):
 
         myResult = myCursor.fetchall()
 
-        listaLablel = Listbox(frameListaCategorias,width=40)
-        listaLablel.grid(row=2, column=1, padx=10, pady=10, columnspan=2)
+        myCursor.close()
+        myBBDD.close()
 
-        for i in myResult:
-            listaLablel.insert(i[0],i[1])
+        return myResult
 
-        botonEditar = Button(frameListaCategorias, text="Editar Categoria",command=lambda:editarCategorias(listaLablel))
-        botonEditar.grid(row=3, column=1, padx=10, pady=10)
-
-        botonEliminar = Button(frameListaCategorias, text="Eliminar Categoria", command=lambda:eliminarCategoria(listaLablel,categoriasVentana))
-        botonEliminar.grid(row=3, column=2, padx=10, pady=10)
     except:
         messagebox.showerror("","Error al momento de mostrar las categorias")
 
 def editarCategorias(listaLablel):
-
     for i in listaLablel.curselection():
         categoriaSelecionada=listaLablel.get(i)
 
-    ventanaEditrarCategoria = Toplevel()
-    ventanaEditrarCategoria.title("Editar Categoria")
+    try:
+        if len(categoriaSelecionada):
+            ventanaEditrarCategoria = Toplevel()
+            ventanaEditrarCategoria.title("Editar Categoria")
 
-    frameEditar = Frame(ventanaEditrarCategoria)
-    frameEditar.pack()
+            frameEditar = Frame(ventanaEditrarCategoria)
+            frameEditar.pack()
 
-    labelEditar= Label(frameEditar, text="Nombre Categoria")
-    labelEditar.grid(row=1, column=1, padx=10, pady=10)
+            labelEditar= Label(frameEditar, text="Nombre Categoria")
+            labelEditar.grid(row=1, column=1, padx=10, pady=10)
 
-    nombreEditar = Entry(frameEditar)
-    nombreEditar.grid( row=1, column=2, padx=10, pady=10)
+            nombreEditar = Entry(frameEditar)
+            nombreEditar.grid( row=1, column=2, padx=10, pady=10)
 
-    editarBoton = Button(frameEditar, text="Guardar", command=lambda:editarCategoriaFuncion(ventanaEditrarCategoria,categoriaSelecionada,nombreEditar))
-    editarBoton.grid(row=2, column=1, padx=10, pady=10, columnspan=2)
+            editarBoton = Button(frameEditar, text="Guardar", command=lambda:editarCategoriaFuncion(ventanaEditrarCategoria,categoriaSelecionada,nombreEditar))
+            editarBoton.grid(row=2, column=1, padx=10, pady=10, columnspan=2)
+
+    except UnboundLocalError:
+        messagebox.showerror("","Por favor seleccionar una categoria")
+
+    except:
+        messagebox.showerror("","Ha ocurrido un error")
 
 def editarCategoriaFuncion(ventanaEditrarCategoria,categoriaSelecionada,nombreEditar):
     if len(nombreEditar.get()):
