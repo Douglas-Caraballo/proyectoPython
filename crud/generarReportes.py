@@ -42,7 +42,7 @@ def reporte():
 
     datos = consultasBBDD.consultaReportes()
 
-    fillName = "Prueba Pdf {}-{}-{}.pdf".format(today.day, today.month, today.year)
+    fillName = "Reporte Inventario {}-{}-{}.pdf".format(today.day, today.month, today.year)
     filledir = verificacionRuta()
 
     outfillepath = os.path.join(filledir, fillName)
