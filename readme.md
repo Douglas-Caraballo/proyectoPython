@@ -26,7 +26,7 @@ El sistema funciona con una serie de librerias que no estan en el python por def
     pip install tkcalendar
 ```
 
-- ReportLab
+- FPDF
 ```
-    pip install reportlab
+    pip install fpdf2
 ```
