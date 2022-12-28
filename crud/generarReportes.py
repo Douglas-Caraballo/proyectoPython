@@ -83,6 +83,12 @@ def reporte():
             pdf.cell((celda/5),10,str(i[4]),0,0)
             pdf.cell((celda/9),10,str(i[5]),0,1,'C')
 
+        pdf.ln(10)
+
+        pdf.cell((celda/3),10, "Cantidad: "+str(totales[0][0][0]),0,0,"C")
+        pdf.cell((celda/3),10, "Registros: "+str(totales[1][0][0]),0,0,"C")
+        pdf.cell((celda/3),10, "Valor Total: "+str(totales[2][0][0])+"$",0,0,"C")
+
         pdf.output(outfillepath)
 
         messagebox.showinfo("","El reporte fue generador y guardado")
