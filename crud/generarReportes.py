@@ -4,6 +4,8 @@ from datetime import datetime
 import os
 from tkinter import messagebox
 
+#------- Veifica si existe la ruta y si no existe la crea------
+
 def verificacionRuta():
     ruta = './reportes'
 
@@ -15,6 +17,9 @@ def verificacionRuta():
     except FileExistsError:
 
         return ruta
+
+
+#------ Funciones para crear el header y el footer de PDF
 
 class PDF(FPDF):
     def header(self):
@@ -52,6 +57,8 @@ class PDF(FPDF):
         self.set_font('Arial','I',8)
         #Paginacion
         self.cell(0,10,'Page '+str(self.page_no())+'/{nb}',0,0,'C')
+
+#------- Funcion para generar el PDF
 
 def reporte():
 
