@@ -557,4 +557,4 @@ def buscar(textNombresProducto,productosLista):
             productosLista.insert(END, i)
 
     except:
-        messagebox.showerror("","Ocurrio un problema al momento de realizar la busqueda") 
+        messagebox.showerror("","Ocurrio un problema al momento de realizar la busqueda")
