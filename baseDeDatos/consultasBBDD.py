@@ -526,3 +526,35 @@ def totales():
     total = cantidadTotal, registrosTotal, precioTotal
 
     return total
+
+
+
+def buscar(textNombresProducto,productosLista):
+
+    valor= textNombresProducto.get()
+
+    try:
+        myBBDD = mysql.connector.connect(
+            host=hostBBDD,
+            user=userBBDD,
+            password=passwordBBDD,
+            database= databaseBBDD
+        )
+
+        myCursor=myBBDD.cursor()
+
+        myCursor.execute("SELECT ID, NOMBRE_PRODUCTO FROM "+tableUne+" WHERE NOMBRE_PRODUCTO LIKE %s", ("%"+valor+"%",))
+
+        myResult = myCursor.fetchall()
+
+        myCursor.close()
+
+        myBBDD.close()
+
+        productosLista.delete(0,END)
+
+        for i in myResult:
+            productosLista.insert(END, i)
+
+    except:
+        messagebox.showerror("","Ocurrio un problema al momento de realizar la busqueda") 

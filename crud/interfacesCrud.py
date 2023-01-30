@@ -75,13 +75,13 @@ def listaDeProducto():
     frameBuscar = Frame(ventanaListaProductos)
     frameBuscar.pack()
 
-    labelBuscarNombre = Label(frameBuscar, text="Nombre o Codigo")
+    labelBuscarNombre = Label(frameBuscar, text="Nombre")
     labelBuscarNombre.grid(row=1,column=2, padx=10, pady=10)
 
     textNombresProducto = Entry(frameBuscar)
     textNombresProducto.grid(row=1, column=3, padx=10, pady=10)
 
-    botonBuscar = Button(frameBuscar, text="Buscar")
+    botonBuscar = Button(frameBuscar, text="Buscar", command=lambda:consultasBBDD.buscar(textNombresProducto,productosLista))
     botonBuscar.grid(row=1, column=4, padx=10, pady=10)
 
     frameListaProductos = Frame(ventanaListaProductos)
