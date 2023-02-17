@@ -1,6 +1,6 @@
 from baseDeDatos import consultasBBDD
-#from reportlab.pdfgen import canvas
-#from reportlab.lib.units import inch
+from reportlab.pdfgen import canvas
+from reportlab.lib.units import inch
 from datetime import datetime
 import os
 from tkinter import messagebox
@@ -17,61 +17,83 @@ def verificacionRuta():
 
         return ruta
 
-def header(lienzo):
+class PDF(FPDF):
+    def header(self):
+        margin=10
 
-    logo = "./img/DK-logo.png"
+        celda=210-(2*margin)
+        #logo
+        logo="./img/DK-logo.png"
+        if os.path.exists(logo):
+            self.image(logo,10,8,40,40)
+        #tipo de letra
+        self.set_font('Arial','B',15)
+        #mover a la derecha
+        self.cell(80)
+        #titulo
+        self.cell(30,10,"Reportes de articulos",0,0,'C')
+        #salto de linea
+        self.ln(40)
 
-    if os.path.exists(logo):
-            lienzo.drawImage(logo,inch,10.3*inch, 100,100,mask="auto")
+        self.set_font('Arial','B',12)
 
-    lienzo.setLineWidth(0.3)
-    lienzo.drawString(250, 10.8*inch, "Reportes de articulos")
-    lienzo.line(230,10.7*inch,380,10.7*inch)
-    lienzo.drawString(inch, 9.8*inch, "Producuto")
-    lienzo.drawString(2.4*inch,9.8*inch, "Codigo")
-    lienzo.drawString(3.4*inch,9.8*inch, "Precio" )
-    lienzo.drawString(4.5*inch,9.8*inch, "Fecha")
-    lienzo.drawString(5.4*inch,9.8*inch, "Categoria")
-    lienzo.drawString(6.5*inch,9.8*inch, "Cantidad")
+        self.cell((celda/5),10,"Producuto",0,0,"C")
+        self.cell((celda/5),10,"Codigo",0,0,"C")
+        self.cell((celda/7),10,"Precio",0,0,"C")
+        self.cell((celda/6),10,"Fecha",0,0,"C")
+        self.cell((celda/5),10,"Categoria",0,0,"C")
+        self.cell((celda/8),10,"Cantidad",0,1,"C")
 
+        self.ln(5)
 
+    def footer(self):
+        #Posicion a 1.5 cm
+        self.set_y(-15)
+        #Tipo de letra
+        self.set_font('Arial','I',8)
+        #Paginacion
+        self.cell(0,10,'Page '+str(self.page_no())+'/{nb}',0,0,'C')
 
 def reporte():
 
+    margin=10
+
+    celda=210-(2*margin)
+
     today = datetime.today()
 
-    datos = consultasBBDD.consultaReportes()
+    consulta = consultasBBDD.consultaReportes()
+    totales = consultasBBDD.totales()
 
-    fillName = "Reporte Inventario {}-{}-{}.pdf".format(today.day, today.month, today.year)
-    filledir = verificacionRuta()
+    fillname = "Reporte Inventario {}-{}-{}.pdf".format(today.day, today.month, today.year)
+    filldir = verificacionRuta()
 
-    outfillepath = os.path.join(filledir, fillName)
+    outfillepath = os.path.join(filldir, fillname)
 
-    lienzo = canvas.Canvas(outfillepath)
-    posisionY = 9.3*inch
+    pdf = PDF()
+    pdf.alias_nb_pages()
+    pdf.add_page()
+    pdf.set_font('Times','',12)
 
-    header(lienzo)
+    if consulta != "Error":
+        for i in consulta:
+            pdf.cell((celda/4.5),10,str(i[0]),0,0)
+            pdf.cell((celda/5),10,str(i[1]),0,0,'C')
+            pdf.cell((celda/7.5),10,str(i[2]),0,0,'C')
+            pdf.cell((celda/6),10,str(i[3]),0,0,'C')
+            pdf.cell((celda/5),10,str(i[4]),0,0)
+            pdf.cell((celda/9),10,str(i[5]),0,1,'C')
 
-    if datos != "Error":
-        for i in datos:
-            lienzo.drawString(inch, posisionY, str(i[0]))
-            lienzo.drawString(2.55*inch, posisionY, str(i[1]))
-            lienzo.drawString(3.45*inch, posisionY, str(i[2]))
-            lienzo.drawString(4.4*inch, posisionY, str(i[3]))
-            lienzo.drawString(5.45*inch, posisionY, str(i[4]))
-            lienzo.drawString(6.9*inch, posisionY, str(i[5]))
-            posisionY = posisionY-(0.4*inch)
+        pdf.ln(10)
 
+        pdf.cell((celda/3),10, "Cantidad: "+str(totales[0][0][0]),0,0,"C")
+        pdf.cell((celda/3),10, "Registros: "+str(totales[1][0][0]),0,0,"C")
+        pdf.cell((celda/3),10, "Valor Total: "+str(totales[2][0][0])+"$",0,0,"C")
 
-    total = consultasBBDD.totales()
+        pdf.output(outfillepath)
 
-    lienzo.drawString(inch, inch, "Cantidad: "+str(total[0][0][0]))
-    lienzo.drawString(3.5*inch, inch, "Registros: "+str(total[1][0][0]))
-    lienzo.drawString(5.5*inch, inch, "Valor total: "+str(total[2][0][0])+"$")
-    lienzo.showPage()
-    lienzo.save()
+        messagebox.showinfo("","El reporte fue generador y guardado")
 
-    messagebox.showinfo("","El reporte fue generador y guardado")
-
-
+    else:
+        messagebox.showerror("", "Ocurrió un error al momento de generar el reporte")
 
