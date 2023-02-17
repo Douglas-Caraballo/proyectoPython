@@ -1,10 +1,13 @@
 from tkinter import *
-from PIL import Image, ImageTk
+#from PIL import Image, ImageTk
 from baseDeDatos import consultasBBDD
 from crud import interfacesCrud
 from crud import generarReportes
 
 raiz = Tk()
+raiz.title("Inventario")
+
+
 
 #---------- Barra de menu -------------
 barraMenu = Menu(raiz)
@@ -22,46 +25,48 @@ barraMenu.add_cascade(label="Inicio", menu=inicioMenu)
 barraMenu.add_cascade(label="Ayuda", menu=ayudaMenu)
 
 #--------- Menu lateral -------------------
-frameMenu = Frame(raiz)
-frameMenu.grid(row=0, column=0)
+frameMenu = Frame(raiz, bg="coral2")
+frameMenu.grid(row=0, column=0, sticky="ns")
 
-image = Image.open("img/DK-logo.png")
+
+"""image = Image.open("img/DK-logo.png")
 img = image.resize((100,100))
-miLogo = ImageTk.PhotoImage(img)
+miLogo = ImageTk.PhotoImage(img)"""
 
-labelLogo = Label(frameMenu,image=miLogo)
-labelLogo.grid(row=0,column=1,sticky="nsew", padx=10, pady=10)
+labelLogo = Label(frameMenu,text="miLogo", bg="coral2")
+labelLogo.grid(row=0,column=1, sticky="nsew", padx=15, pady=15)
 
-botonRegistrar = Button(frameMenu, text="Registrar",width=15, relief="flat",command=lambda:interfacesCrud.registrarProducto())
-botonRegistrar.grid(row=2, column=1, sticky="W")
+botonRegistrar = Button(frameMenu, text="Registrar", height=2, fg="gray9", activeforeground="white", bg="coral2", activebackground="coral", relief="flat", borderwidth=0, highlightthickness=0, cursor="cross", command=lambda:interfacesCrud.registrarProducto())
+botonRegistrar.grid(row=2, column=1, sticky="ew")
 
-botonCategorias = Button(frameMenu, text="Categorias", width=15,relief="flat", command=lambda:interfacesCrud.registrarCategorias())
-botonCategorias.grid(row=3, column=1, sticky="w")
+botonCategorias = Button(frameMenu, text="Categorias", height=2, fg="gray9", activeforeground="white", bg="coral2",  activebackground="coral", relief="flat", borderwidth=0, highlightthickness=0, cursor="cross", command=lambda:interfacesCrud.registrarCategorias())
+botonCategorias.grid(row=3, column=1, sticky="ew")
 
-botonLista = Button(frameMenu, text="Lista de Productos", relief="flat", command=lambda:interfacesCrud.listaDeProducto())
-botonLista.grid(row=4,column=1, sticky="W")
+botonLista = Button(frameMenu, text="Lista de Productos", height=2, activeforeground="white", fg="gray9", bg="coral2",  activebackground="coral", relief="flat", borderwidth=0, highlightthickness=0, cursor="cross", command=lambda:interfacesCrud.listaDeProducto())
+botonLista.grid(row=4,column=1, sticky="ew")
 
-botonReportes = Button(frameMenu, text="Reportes",width=15,relief="flat", command=lambda:generarReportes.reporte())
-botonReportes.grid(row=5, column=1,sticky="W")
+botonReportes = Button(frameMenu, text="Reportes", height=2, relief="flat", activeforeground="white", fg="gray9", bg="coral2",  activebackground="coral", borderwidth=0, highlightthickness=0, cursor="cross", command=lambda:generarReportes.reporte())
+botonReportes.grid(row=5, column=1,sticky="ew")
 
-botonSalir = Button(frameMenu, text="Salir", width=15, relief="flat", command=lambda:interfacesCrud.salir(raiz))
-botonSalir.grid(row=6, column=1, sticky="W")
+botonSalir = Button(frameMenu, text="Salir", height=2, relief="flat", activeforeground="white", fg="gray9", bg="coral2",  activebackground="coral", borderwidth=0, highlightthickness=0, command=lambda:interfacesCrud.salir(raiz))
+botonSalir.grid(row=6, column=1, sticky="ew")
 
 #-------- Frame principal ------------------
 
-framePrincipal = Frame(raiz)
-framePrincipal.grid(row=0,column=1)
+framePrincipal = Frame(raiz, height=5)
+framePrincipal.grid(row=0, column=1)
 
-frameValor = Frame(framePrincipal)
-frameValor.grid(row=1,column=0)
+frameValor = Frame(framePrincipal, bg="OliveDrab2")
+frameValor.grid(row=0, column=0, padx=15, pady=15)
 
-labelValor = Label(frameValor, text="El valor total del inventario: ", padx=3)
+labelValor = Label(frameValor, text="El valor total del inventario: ", bg="OliveDrab2", width=40, height=10, activeforeground="OrangeRed4")
 labelValor.grid(row=1, column=1)
 
-frameRegistros = Frame(framePrincipal)
-frameRegistros.grid(row=1, column=3)
+frameRegistros = Frame(framePrincipal, bg="goldenrod2")
+frameRegistros.grid(row=0, column=1, padx=15, pady=15)
 
-labelRegistro = Label(frameRegistros, text="Cantidad de registros: ",padx=3)
+labelRegistro = Label(frameRegistros, text="Cantidad de registros: ", bg="goldenrod2", width=40, height=10, padx=3, activeforeground="OrangeRed4")
 labelRegistro.grid(row=1, column=1)
+
 
 raiz.mainloop()

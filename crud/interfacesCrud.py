@@ -1,7 +1,7 @@
 from tkinter import *
 from tkinter import messagebox
 from tkinter.ttk import Combobox
-from tkcalendar import DateEntry
+#from tkcalendar import DateEntry
 from baseDeDatos import consultasBBDD
 
 def registrarProducto():

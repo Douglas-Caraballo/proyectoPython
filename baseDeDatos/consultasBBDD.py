@@ -1,6 +1,6 @@
 from tkinter import messagebox
 from tkinter import *
-import mysql.connector
+#import mysql.connector
 
 hostBBDD = "localhost"
 userBBDD = "root"
