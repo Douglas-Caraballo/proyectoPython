@@ -1,42 +1,43 @@
 from tkinter import *
 from tkinter import messagebox
 from tkinter.ttk import Combobox
-#from tkcalendar import DateEntry
+from tkcalendar import DateEntry
 from baseDeDatos import consultasBBDD
 
 def registrarProducto():
     registrarVentana = Toplevel()
     registrarVentana.title("Registar producto")
+    registrarVentana.config(bg="snow")
 
 #------------ Frame Formulario ---------------------
-    frameRegistrarVentana = Frame(registrarVentana)
+    frameRegistrarVentana = Frame(registrarVentana, bg="snow")
     frameRegistrarVentana.pack()
 
-    labelNombre = Label(frameRegistrarVentana, text="Nombre")
+    labelNombre = Label(frameRegistrarVentana, text="Nombre", bg="snow", fg="coral2")
     labelNombre.grid(row=1, column=0, sticky="W", padx=10, pady=10)
 
-    labelCodigo = Label(frameRegistrarVentana, text= "Codigo")
-    labelCodigo.grid(row=2, column=0, sticky="W" ,padx=10, pady=10)
+    labelCodigo = Label(frameRegistrarVentana, text= "Codigo", bg="snow", fg="coral2")
+    labelCodigo.grid(row=1, column=2, sticky="W" ,padx=10, pady=10)
 
-    labelPrecio = Label(frameRegistrarVentana, text="Precio")
+    labelPrecio = Label(frameRegistrarVentana, text="Precio", bg="snow", fg="coral2")
     labelPrecio.grid(row=3, column=0, sticky="W", padx=10, pady=10)
 
-    labelFecha = Label(frameRegistrarVentana, text="Fecha")
+    labelFecha = Label(frameRegistrarVentana, text="Fecha", bg="snow", fg="coral2")
     labelFecha.grid(row=4, column=0, sticky="W", padx=10, pady=10)
 
-    labelCategoria = Label(frameRegistrarVentana, text="Categoria")
+    labelCategoria = Label(frameRegistrarVentana, text="Categoria", bg="snow", fg="coral2")
     labelCategoria.grid(row=5, column=0, sticky="W", padx=10, pady=10)
 
-    labelCantidad = Label(frameRegistrarVentana, text="Cantidad")
+    labelCantidad = Label(frameRegistrarVentana, text="Cantidad", bg="snow", fg="coral2")
     labelCantidad.grid(row=6, column=0, sticky="W", padx=10, pady=10)
 
-    textNombre = Entry(frameRegistrarVentana)
+    textNombre = Entry(frameRegistrarVentana, bg="snow2" )
     textNombre.grid(row=1,column=1, padx=10, pady=10)
 
-    textCodigo = Entry(frameRegistrarVentana)
-    textCodigo.grid(row=2, column=1, padx=10, pady=10)
+    textCodigo = Entry(frameRegistrarVentana, bg="snow2")
+    textCodigo.grid(row=1, column=3, padx=10, pady=10)
 
-    textPrecio = Entry(frameRegistrarVentana)
+    textPrecio = Entry(frameRegistrarVentana, bg="snow2")
     textPrecio.grid(row=3, column=1, padx=10, pady=10)
 
     textCalendar = DateEntry(frameRegistrarVentana, width=18)
