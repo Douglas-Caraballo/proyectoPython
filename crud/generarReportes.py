@@ -1,6 +1,6 @@
 from baseDeDatos import consultasBBDD
-from reportlab.pdfgen import canvas
-from reportlab.lib.units import inch
+#from reportlab.pdfgen import canvas
+#from reportlab.lib.units import inch
 from datetime import datetime
 import os
 from tkinter import messagebox
@@ -17,7 +17,7 @@ def verificacionRuta():
 
         return ruta
 
-class PDF(FPDF):
+'''class PDF(FPDF):
     def header(self):
         margin=10
 
@@ -95,5 +95,5 @@ def reporte():
         messagebox.showinfo("","El reporte fue generador y guardado")
 
     else:
-        messagebox.showerror("", "Ocurrió un error al momento de generar el reporte")
+        messagebox.showerror("", "Ocurrió un error al momento de generar el reporte")'''
 
