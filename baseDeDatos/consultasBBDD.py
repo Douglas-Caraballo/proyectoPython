@@ -9,6 +9,8 @@ databaseBBDD = "PYTHONSYSTEM"
 tableUne = "PRODUCTOS"
 tableTwo = "CATEGORIAS"
 
+#------- Funcion para crear la base de datos y la relacion entre tablas
+
 def crearBBDD():
     try:
         myBBDD = mysql.connector.connect(
@@ -46,6 +48,7 @@ def crearBBDD():
     except:
         messagebox.showerror("Base de datos", "La base de datos ya existe")
 
+#----- Funcion del CRUD para Crear las categorias
 
 def crearCategoria(nombreCategoria):
     try:
@@ -76,8 +79,12 @@ def crearCategoria(nombreCategoria):
     except:
         messagebox.showerror("Base de Datos", "Ocurrio un error al momento de guardar la categoria")
 
+#------ Funcion para limpiar el campo de registro
+
 def limpiarCategoria(nombreCategoria):
     nombreCategoria.delete(0,END)
+
+#------- Funcion del CRUD para Read las categorias registradas
 
 def listaCategorias():
     try:
@@ -100,6 +107,8 @@ def listaCategorias():
 
     except:
         messagebox.showerror("","Error al momento de mostrar las categorias")
+
+#------- Funcion mostrar la categoria a editar
 
 def editarCategorias(listaLablel):
     for i in listaLablel.curselection():
@@ -127,6 +136,8 @@ def editarCategorias(listaLablel):
 
     except:
         messagebox.showerror("","Ha ocurrido un error")
+
+#------- Funcion del CRUD para Update las categorias y guardar en la base de datos
 
 def editarCategoriaFuncion(ventanaEditrarCategoria,categoriaSelecionada,nombreEditar):
     if len(nombreEditar.get()):
@@ -157,6 +168,8 @@ def editarCategoriaFuncion(ventanaEditrarCategoria,categoriaSelecionada,nombreEd
     else:
         messagebox.showerror("", "El campo nombre no debe estar en blanco")
 
+#------ Funcion del CRUD para Delete una categoria
+
 def eliminarCategoria(listaLablel,categoriasVentana):
     for i in listaLablel.curselection():
         categoriaSelecionada=listaLablel.get(i)
@@ -183,6 +196,8 @@ def eliminarCategoria(listaLablel,categoriasVentana):
         except:
             messagebox.showerror("Base de datos", "No se pudo eliminar la categoria '" + categoriaSelecionada +"'")
 
+#------- Funcion para mostrar todas las categorias registradas al momente de registrar un producto
+
 def categoriasRegistroProductos():
     try:
         myBBDD = mysql.connector.connect(
@@ -203,6 +218,8 @@ def categoriasRegistroProductos():
 
     except:
         return "error"
+
+#----- Funcion del CRUD para Crear un producto
 
 def registrarProducto(textNombre,textCodigo,textPrecio,textCalendar,textCategoria,textCantidad,registrarVentana):
     categoria = [int(categoria) for categoria in str.split(textCategoria.get()) if categoria.isdigit()]
@@ -239,11 +256,15 @@ def registrarProducto(textNombre,textCodigo,textPrecio,textCalendar,textCategori
     else:
         messagebox.showerror("","No se pueden hacer registro en blanco")
 
+#------- Funcion para limpiar los campos de la interface de registro
+
 def limpiarCamposProductos(textNombre,textCodigo,textPrecio,textCantidad):
     textNombre.delete(0,END)
     textCodigo.delete(0,END)
     textPrecio.delete(0,END)
     textCantidad.delete(0,END)
+
+#------- Funcion del CRUD para Read todos los productos registrados
 
 def leerProductos():
     try:
@@ -261,6 +282,8 @@ def leerProductos():
     except:
 
         return "Error"
+
+#----- Funcion para mostrar todos los datos del producto seleccionado
 
 def verProducto(productosLista):
     for i in productosLista.curselection():
@@ -344,6 +367,8 @@ def verProducto(productosLista):
     except:
         messagebox.showerror("","Ocurrio un error al momento de mostrar los datos")
 
+#------ Funcion para traer los datos de los productos a editar
+
 def consultaProductos(producto):
 
     try:
@@ -368,6 +393,8 @@ def consultaProductos(producto):
     except:
 
         return "error"
+
+#----- Funcion para editar los productos
 
 def editarProducto(ventanaEditar,textNombre,textCodigo,textPrecio, textCalendar,textCategoria,textCantidad, ID):
 
@@ -402,6 +429,8 @@ def editarProducto(ventanaEditar,textNombre,textCodigo,textPrecio, textCalendar,
 
     except:
         messagebox.showerror("","Se produjo un error al momento de actualizar el registro")
+
+#-------- Funcion para eliminar los productos
 
 def eliminarProducto(ventanaListaProductos,productosLista):
     for i in productosLista.curselection():
@@ -440,6 +469,8 @@ def eliminarProducto(ventanaListaProductos,productosLista):
     except:
         messagebox.showerror("", "Ocurrio un problema al momento de eliminar")
 
+#-------- Funcion para realizar la consulta y generar el reporte
+
 def consultaReportes():
 
     try:
@@ -464,6 +495,8 @@ def consultaReportes():
 
     except:
         return "Error"
+
+#------ Funcion para calcular los totales de los datos registrados
 
 def totales():
     myBBDD = mysql.connector.connect(
@@ -493,3 +526,35 @@ def totales():
     total = cantidadTotal, registrosTotal, precioTotal
 
     return total
+
+
+
+def buscar(textNombresProducto,productosLista):
+
+    valor= textNombresProducto.get()
+
+    try:
+        myBBDD = mysql.connector.connect(
+            host=hostBBDD,
+            user=userBBDD,
+            password=passwordBBDD,
+            database= databaseBBDD
+        )
+
+        myCursor=myBBDD.cursor()
+
+        myCursor.execute("SELECT ID, NOMBRE_PRODUCTO FROM "+tableUne+" WHERE NOMBRE_PRODUCTO LIKE %s", ("%"+valor+"%",))
+
+        myResult = myCursor.fetchall()
+
+        myCursor.close()
+
+        myBBDD.close()
+
+        productosLista.delete(0,END)
+
+        for i in myResult:
+            productosLista.insert(END, i)
+
+    except:
+        messagebox.showerror("","Ocurrio un problema al momento de realizar la busqueda")

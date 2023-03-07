@@ -4,6 +4,8 @@ from tkinter.ttk import Combobox
 #from tkcalendar import DateEntry
 #from baseDeDatos import consultasBBDD
 
+#------ Funcion para la interface de registro de productos
+
 def registrarProducto():
     registrarVentana = Toplevel()
     registrarVentana.title("Registar producto")
@@ -64,6 +66,8 @@ def registrarProducto():
 
     registrarVentana.mainloop()
 
+#------ Funcion para la interface de la lista de productos
+
 def listaDeProducto():
 
     ventanaListaProductos = Toplevel()
@@ -72,13 +76,13 @@ def listaDeProducto():
     frameBuscar = Frame(ventanaListaProductos)
     frameBuscar.pack()
 
-    labelBuscarNombre = Label(frameBuscar, text="Nombre o Codigo")
+    labelBuscarNombre = Label(frameBuscar, text="Nombre")
     labelBuscarNombre.grid(row=1,column=2, padx=10, pady=10)
 
     textNombresProducto = Entry(frameBuscar)
     textNombresProducto.grid(row=1, column=3, padx=10, pady=10)
 
-    botonBuscar = Button(frameBuscar, text="Buscar")
+    botonBuscar = Button(frameBuscar, text="Buscar", command=lambda:consultasBBDD.buscar(textNombresProducto,productosLista))
     botonBuscar.grid(row=1, column=4, padx=10, pady=10)
 
     frameListaProductos = Frame(ventanaListaProductos)
@@ -109,6 +113,8 @@ def listaDeProducto():
 
     ventanaListaProductos.mainloop()
 
+#------ Funcion para cerrar el sistema completo
+
 def salir(raiz):
 
     salirDelSistema = messagebox.askquestion("Salir del sistema", "Desea salir del sistema?")
@@ -116,6 +122,8 @@ def salir(raiz):
     if salirDelSistema == "yes":
 
         raiz.destroy()
+
+#------ Funcion para la interface de registro de las categorias
 
 def registrarCategorias():
     categoriasVentana = Toplevel()
@@ -158,6 +166,7 @@ def registrarCategorias():
     botonEliminar = Button(frameListaCategorias, text="Eliminar Categoria", command=lambda:consultasBBDD.eliminarCategoria(listaLablel,categoriasVentana))
     botonEliminar.grid(row=3, column=2, padx=10, pady=10)
 
+#------ Funcion para la interface que muestra la informacion de un producto para editarlo
 
 def verParaEditar(productosLista):
     for i in productosLista.curselection():

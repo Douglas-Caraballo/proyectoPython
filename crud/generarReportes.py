@@ -1,9 +1,11 @@
 from baseDeDatos import consultasBBDD
-#from reportlab.pdfgen import canvas
-#from reportlab.lib.units import inch
+from reportlab.pdfgen import canvas
+from reportlab.lib.units import inch
 from datetime import datetime
 import os
 from tkinter import messagebox
+
+#------- Veifica si existe la ruta y si no existe la crea------
 
 def verificacionRuta():
     ruta = './reportes'
@@ -17,7 +19,7 @@ def verificacionRuta():
 
         return ruta
 
-'''class PDF(FPDF):
+class PDF(FPDF):
     def header(self):
         margin=10
 
@@ -53,6 +55,8 @@ def verificacionRuta():
         self.set_font('Arial','I',8)
         #Paginacion
         self.cell(0,10,'Page '+str(self.page_no())+'/{nb}',0,0,'C')
+
+#------- Funcion para generar el PDF
 
 def reporte():
 
