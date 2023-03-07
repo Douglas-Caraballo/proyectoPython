@@ -1,5 +1,6 @@
 from baseDeDatos import consultasBBDD
-from fpdf import FPDF
+from reportlab.pdfgen import canvas
+from reportlab.lib.units import inch
 from datetime import datetime
 import os
 from tkinter import messagebox
