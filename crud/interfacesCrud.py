@@ -2,7 +2,7 @@ from tkinter import *
 from tkinter import messagebox
 from tkinter.ttk import Combobox
 #from tkcalendar import DateEntry
-#from baseDeDatos import consultasBBDD
+from baseDeDatos import consultasBBDD
 
 #------ Funcion para la interface de registro de productos
 

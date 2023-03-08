@@ -1,6 +1,6 @@
 from tkinter import *
 #from PIL import Image, ImageTk
-#from baseDeDatos import consultasBBDD
+from baseDeDatos import consultasBBDD
 from crud import interfacesCrud
 from crud import generarReportes
 
