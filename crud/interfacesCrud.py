@@ -1,7 +1,7 @@
 from tkinter import *
 from tkinter import messagebox
 from tkinter.ttk import Combobox
-#from tkcalendar import DateEntry
+from tkcalendar import DateEntry
 from baseDeDatos import consultasBBDD
 
 #------ Funcion para la interface de registro de productos
@@ -42,8 +42,8 @@ def registrarProducto():
     textPrecio = Entry(frameRegistrarVentana, bg="snow2")
     textPrecio.grid(row=3, column=1, padx=10, pady=10)
 
-    '''textCalendar = DateEntry(frameRegistrarVentana, width=18)
-    textCalendar.grid(row=4, column=1, padx=10, pady=10)'''
+    textCalendar = DateEntry(frameRegistrarVentana, width=18)
+    textCalendar.grid(row=4, column=1, padx=10, pady=10)
 
     textCategoria = Combobox(frameRegistrarVentana, width=18,state="readonly")
     textCategoria.grid(row=4, column=3, padx=10, pady=10)
