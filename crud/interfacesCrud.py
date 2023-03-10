@@ -8,8 +8,8 @@ from baseDeDatos import consultasBBDD
 
 def registrarProducto():
     registrarVentana = Toplevel()
-    registrarVentana.title("Registar producto")
     registrarVentana.config(bg="snow")
+    registrarVentana.title("Registar producto")
 
 #------------ Frame Formulario ---------------------
     frameRegistrarVentana = Frame(registrarVentana, bg="snow")
@@ -24,14 +24,14 @@ def registrarProducto():
     labelPrecio = Label(frameRegistrarVentana, text="Precio", bg="snow", fg="coral2")
     labelPrecio.grid(row=3, column=0, sticky="W", padx=10, pady=10)
 
+    labelCantidad = Label(frameRegistrarVentana, text="Cantidad", bg="snow", fg="coral2")
+    labelCantidad.grid(row=3, column=2, sticky="W", padx=10, pady=10)
+
     labelFecha = Label(frameRegistrarVentana, text="Fecha", bg="snow", fg="coral2")
     labelFecha.grid(row=4, column=0, sticky="W", padx=10, pady=10)
 
     labelCategoria = Label(frameRegistrarVentana, text="Categoria", bg="snow", fg="coral2")
-    labelCategoria.grid(row=5, column=0, sticky="W", padx=10, pady=10)
-
-    labelCantidad = Label(frameRegistrarVentana, text="Cantidad", bg="snow", fg="coral2")
-    labelCantidad.grid(row=6, column=0, sticky="W", padx=10, pady=10)
+    labelCategoria.grid(row=4, column=2, sticky="W", padx=10, pady=10)
 
     textNombre = Entry(frameRegistrarVentana, bg="snow2" )
     textNombre.grid(row=1,column=1, padx=10, pady=10)
@@ -42,27 +42,30 @@ def registrarProducto():
     textPrecio = Entry(frameRegistrarVentana, bg="snow2")
     textPrecio.grid(row=3, column=1, padx=10, pady=10)
 
-    textCalendar = DateEntry(frameRegistrarVentana, width=18)
-    textCalendar.grid(row=4, column=1, padx=10, pady=10)
+    '''textCalendar = DateEntry(frameRegistrarVentana, width=18)
+    textCalendar.grid(row=4, column=1, padx=10, pady=10)'''
 
     textCategoria = Combobox(frameRegistrarVentana, width=18,state="readonly")
-    textCategoria.grid(row=5, column=1, padx=10, pady=10)
+    textCategoria.grid(row=4, column=3, padx=10, pady=10)
     listaDeCategorias = consultasBBDD.categoriasRegistroProductos()
     if(listaDeCategorias != "error"):
         textCategoria['values'] = listaDeCategorias
 
     textCantidad = Entry(frameRegistrarVentana)
-    textCantidad.grid(row=6, column=1, padx=10, pady=10)
+    textCantidad.grid(row=3, column=3, padx=10, pady=10)
 
     #-------------- Frame Botones --------------------
     frameBotonesRegistro = Frame(registrarVentana)
+    frameBotonesRegistro.config(bg="snow")
     frameBotonesRegistro.pack()
 
-    botonRegistrar = Button(frameBotonesRegistro, text= "Registrar", command=lambda:consultasBBDD.registrarProducto(textNombre,textCodigo,textPrecio,textCalendar,textCategoria,textCantidad,registrarVentana))
-    botonRegistrar.grid(row=1, column=1, padx=10, pady=10)
+    botonRegistrar = Button(frameBotonesRegistro, text= "Registrar", command=lambda:consultasBBDD.registrarProducto(textNombre,textCodigo,textPrecio,textCategoria,textCantidad,registrarVentana))
+    botonRegistrar.config(bg="cyan3", fg="salmon4", activebackground="cyan2", activeforeground="gray9")
+    botonRegistrar.grid(row=1, column=1, padx=10, pady=10, sticky="ew")
 
-    botonLimiar = Button(frameBotonesRegistro, text="Limpiar Campos", command=lambda:consultasBBDD.limpiarCamposProductos(textNombre,textCodigo,textPrecio,textCantidad))
-    botonLimiar.grid(row=1, column=2, padx=10, pady=10)
+    botonLiminar = Button(frameBotonesRegistro, text="Limpiar Campos", command=lambda:consultasBBDD.limpiarCamposProductos(textNombre,textCodigo,textPrecio,textCantidad))
+    botonLiminar.config(bg="cyan3", fg="salmon4", activebackground="cyan2", activeforeground="gray9")
+    botonLiminar.grid(row=1, column=2, padx=10, pady=10, sticky="ew")
 
     registrarVentana.mainloop()
 
@@ -72,34 +75,40 @@ def listaDeProducto():
 
     ventanaListaProductos = Toplevel()
     ventanaListaProductos.title("Lista de productos")
+    ventanaListaProductos.config(bg="snow")
 
-    frameBuscar = Frame(ventanaListaProductos)
+    frameBuscar = Frame(ventanaListaProductos, bg="snow")
     frameBuscar.pack()
 
-    labelBuscarNombre = Label(frameBuscar, text="Nombre")
+    labelBuscarNombre = Label(frameBuscar, text="Nombre", bg="snow")
     labelBuscarNombre.grid(row=1,column=2, padx=10, pady=10)
 
-    textNombresProducto = Entry(frameBuscar)
+    textNombresProducto = Entry(frameBuscar, bg="snow2")
     textNombresProducto.grid(row=1, column=3, padx=10, pady=10)
 
     botonBuscar = Button(frameBuscar, text="Buscar", command=lambda:consultasBBDD.buscar(textNombresProducto,productosLista))
+    botonBuscar.config(bg="cyan3", activebackground="cyan2", fg="tomato4", activeforeground="gray9")
     botonBuscar.grid(row=1, column=4, padx=10, pady=10)
 
-    frameListaProductos = Frame(ventanaListaProductos)
+    frameListaProductos = Frame(ventanaListaProductos, bg="snow")
     frameListaProductos.pack()
 
-    productosLista = Listbox(frameListaProductos, width=45)
+    productosLista = Listbox(frameListaProductos, width=45, bg="peach puff")
     productosLista.grid(row=1, column=1, padx=10, pady=10, columnspan=3)
     scrolVert = Scrollbar(frameListaProductos, command= productosLista.yview)
+    scrolVert.config(bg="peach puff")
     scrolVert.grid(row=1, column=4, padx=5, pady=10, sticky="nsew")
 
     botonLeer = Button(frameListaProductos, text= "Ver detalles", command=lambda:consultasBBDD.verProducto(productosLista))
+    botonLeer.config(bg="cyan3", activebackground="cyan2", fg="tomato4", activeforeground="gray9")
     botonLeer.grid(row=2, column=1, padx=10, pady=10)
 
     botonEditarRegistro = Button(frameListaProductos, text="Editar", command=lambda:verParaEditar(productosLista))
+    botonEditarRegistro.config(bg="cyan3", activebackground="cyan2", fg="tomato4", activeforeground="gray9")
     botonEditarRegistro.grid(row=2, column=2, padx=10, pady=10)
 
     botonEliminarRegistro = Button(frameListaProductos, text="Eliminar", command=lambda:consultasBBDD.eliminarProducto(ventanaListaProductos,productosLista))
+    botonEliminarRegistro.config(bg="tomato2", activebackground="tomato1", fg="gray14", activeforeground="gray9")
     botonEliminarRegistro.grid(row=2, column=3, padx=10, pady=10)
 
     registros= consultasBBDD.leerProductos()
@@ -126,34 +135,37 @@ def salir(raiz):
 #------ Funcion para la interface de registro de las categorias
 
 def registrarCategorias():
-    categoriasVentana = Toplevel()
+    categoriasVentana = Toplevel(bg="snow")
     categoriasVentana.title("Categorias")
 
-    frameRegistroCategorias = Frame(categoriasVentana)
+
+    frameRegistroCategorias = Frame(categoriasVentana, bg="snow")
     frameRegistroCategorias.grid(row=0,column=1)
 
     nombreCategoria = StringVar()
 
-    labelNombre = Label(frameRegistroCategorias, text="Nombre")
-    labelNombre.grid(row=1,column=1, padx=10)
+    labelNombre = Label(frameRegistroCategorias, text="Nombre:", bg="snow")
+    labelNombre.grid(row=1,column=2, padx=20)
 
-    cuadroNombre = Entry(frameRegistroCategorias, textvariable= nombreCategoria)
-    cuadroNombre.grid(row=1, column=2, padx=10, pady=10, columnspan=2)
+    cuadroNombre = Entry(frameRegistroCategorias, textvariable= nombreCategoria, bg="snow2")
+    cuadroNombre.grid(row=1, column=3, pady=5, padx=20, columnspan=2)
 
     botonRegistro = Button(frameRegistroCategorias, text="Registrar", command=lambda:consultasBBDD.crearCategoria(cuadroNombre))
-    botonRegistro.grid(row=3, column=1, padx=10, pady=10)
+    botonRegistro.config(bg="cyan3", activebackground="cyan2", fg="tomato4", activeforeground="gray9")
+    botonRegistro.grid(row=3, column=1, padx=50, pady=10, columnspan=2)
 
     botonLimpiar= Button(frameRegistroCategorias, text="Limpiar Campos", command=lambda:consultasBBDD.limpiarCategoria(cuadroNombre))
-    botonLimpiar.grid(row=3, column=3, padx=10, pady=10)
+    botonLimpiar.config(bg="Cyan3", activebackground="cyan2", fg="tomato4", activeforeground="gray9")
+    botonLimpiar.grid(row=3, column=3, padx=5, pady=10)
 
-    frameListaCategorias = Frame(categoriasVentana)
+    frameListaCategorias = Frame(categoriasVentana, bg="snow")
     frameListaCategorias.grid(row=1,column=1)
 
-    labelCategorias = Label(frameListaCategorias, text="Categorias:")
-    labelCategorias.grid(row=1,column=1,pady=10,sticky="nesw")
+    labelCategorias = Label(frameListaCategorias, text="Categorias Creadas", bg="snow", foreground="coral2")
+    labelCategorias.grid(row=0, column=0, pady=10, padx=10, columnspan=2)
 
-    listaLablel = Listbox(frameListaCategorias,width=40)
-    listaLablel.grid(row=2, column=1, padx=10, pady=10, columnspan=2)
+    listaLablel = Listbox(frameListaCategorias,width=60, bg="peach puff", fg="tomato4")
+    listaLablel.grid(row=1, column=0, padx=10, pady=10, columnspan=2)
 
     lista= consultasBBDD.listaCategorias()
 
@@ -161,9 +173,11 @@ def registrarCategorias():
         listaLablel.insert(i[0],i[1])
 
     botonEditar = Button(frameListaCategorias, text="Editar Categoria",command=lambda:consultasBBDD.editarCategorias(listaLablel))
+    botonEditar.config(bg="Cyan3", activebackground="Cyan2", fg="tomato4", activeforeground="gray9")
     botonEditar.grid(row=3, column=1, padx=10, pady=10)
 
     botonEliminar = Button(frameListaCategorias, text="Eliminar Categoria", command=lambda:consultasBBDD.eliminarCategoria(listaLablel,categoriasVentana))
+    botonEliminar.config(bg="tomato3", activebackground="tomato2", fg="sienna4", activeforeground="gray9")
     botonEliminar.grid(row=3, column=2, padx=10, pady=10)
 
 #------ Funcion para la interface que muestra la informacion de un producto para editarlo

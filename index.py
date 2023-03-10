@@ -55,20 +55,20 @@ botonSalir.grid(row=6, column=1, sticky="ew")
 
 #-------- Frame principal ------------------
 
-framePrincipal = Frame(raiz, height=5, bg="snow")
+framePrincipal = Frame(raiz, height=5, bg="bisque")
 framePrincipal.grid(row=0, column=1)
 
-frameValor = Frame(framePrincipal, bg="OliveDrab2")
+frameValor = Frame(framePrincipal, bg="spring green")
 frameValor.grid(row=0, column=0, padx=15, pady=15)
 
-labelValor = Label(frameValor, text="El valor total del inventario: ", bg="OliveDrab2", width=40, height=10, activeforeground="OrangeRed4")
-labelValor.grid(row=1, column=1)
+labelValor = Label(frameValor, text="El valor total del inventario: ", bg="spring green", width=40, height=10, activeforeground="OrangeRed4", border=5)
+labelValor.grid(row=0, column=0, sticky="n")
 
-frameRegistros = Frame(framePrincipal, bg="goldenrod2")
-frameRegistros.grid(row=0, column=1, padx=15, pady=15)
+frameRegistros = Frame(framePrincipal, bg="cyan3")
+frameRegistros.grid(row=2, column=1, padx=15, pady=15)
 
-labelRegistro = Label(frameRegistros, text="Cantidad de registros: ", bg="goldenrod1", width=40, height=10, padx=3, activeforeground="OrangeRed4")
-labelRegistro.grid(row=1, column=1)
+labelRegistro = Label(frameRegistros, text="Cantidad de registros: ", bg="Cyan3", width=40, height=10, padx=3, activeforeground="OrangeRed4")
+labelRegistro.grid(row=2, column=1)
 
 
 raiz.mainloop()
