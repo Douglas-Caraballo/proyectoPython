@@ -1,6 +1,6 @@
 from tkinter import messagebox
 from tkinter import *
-#import mysql.connector
+import mysql.connector
 
 hostBBDD = "localhost"
 userBBDD = "root"
@@ -117,18 +117,20 @@ def editarCategorias(listaLablel):
     try:
         if len(categoriaSelecionada):
             ventanaEditrarCategoria = Toplevel()
+            ventanaEditrarCategoria.config(bg="peach puff")
             ventanaEditrarCategoria.title("Editar Categoria")
 
             frameEditar = Frame(ventanaEditrarCategoria)
             frameEditar.pack()
 
-            labelEditar= Label(frameEditar, text="Nombre Categoria")
+            labelEditar= Label(frameEditar, text="Nombre Categoria", bg="peach puff", fg="coral3")
             labelEditar.grid(row=1, column=1, padx=10, pady=10)
 
-            nombreEditar = Entry(frameEditar)
+            nombreEditar = Entry(frameEditar, bg="snow2")
             nombreEditar.grid( row=1, column=2, padx=10, pady=10)
 
             editarBoton = Button(frameEditar, text="Guardar", command=lambda:editarCategoriaFuncion(ventanaEditrarCategoria,categoriaSelecionada,nombreEditar))
+            editarBoton.config(bg="cyan3", activebackground="cyan2", fg="brown4", activeforeground="gray9")
             editarBoton.grid(row=2, column=1, padx=10, pady=10, columnspan=2)
 
     except UnboundLocalError:
