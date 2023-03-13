@@ -1,5 +1,5 @@
 from tkinter import *
-from PIL import Image, ImageTk
+#from PIL import Image, ImageTk
 from baseDeDatos import consultasBBDD
 from crud import interfacesCrud
 from crud import generarReportes
@@ -31,9 +31,9 @@ barraMenu.add_cascade(label="Ayuda", menu=ayudaMenu)
 frameMenu = Frame(raiz, bg="coral2")
 frameMenu.grid(row=0, column=0, sticky="ns")
 
-image = Image.open("img/DK-logo.png")
+'''image = Image.open("img/DK-logo.png")
 img = image.resize((100,100))
-miLogo = ImageTk.PhotoImage(img)
+miLogo = ImageTk.PhotoImage(img)'''
 
 labelLogo = Label(frameMenu,text="miLogo", bg="coral2")
 labelLogo.grid(row=0,column=1, sticky="nsew", padx=15, pady=15)
