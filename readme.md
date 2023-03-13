@@ -14,7 +14,7 @@ Cuenta con conexion a una base de datos en MySQL
 
 Al momento de editar el codigo del sistena.
 
-El sistema funciona con una serie de librerias que no estan en el python por defecto
+El sistema funciona con una serie de librerias que no se encuentran en el python por defecto, instalar mediante las siguientes lineas de codigo
 
 - MySQL Conector
 ```

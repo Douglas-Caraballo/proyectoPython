@@ -105,7 +105,7 @@ def listaDeProducto():
 
     botonEditarRegistro = Button(frameListaProductos, text="Editar", command=lambda:verParaEditar(productosLista))
     botonEditarRegistro.config(bg="cyan3", activebackground="cyan2", fg="tomato4", activeforeground="gray9")
-    botonEditarRegistro.grid(row=2, column=2, padx=10, pady=10)
+    botonEditarRegistro.grid(row=2, column=3, padx=10, pady=10)
 
     botonEliminarRegistro = Button(frameListaProductos, text="Eliminar", command=lambda:consultasBBDD.eliminarProducto(ventanaListaProductos,productosLista))
     botonEliminarRegistro.config(bg="tomato2", activebackground="tomato1", fg="gray14", activeforeground="gray9")
@@ -174,11 +174,11 @@ def registrarCategorias():
 
     botonEditar = Button(frameListaCategorias, text="Editar Categoria",command=lambda:consultasBBDD.editarCategorias(listaLablel))
     botonEditar.config(bg="Cyan3", activebackground="Cyan2", fg="tomato4", activeforeground="gray9")
-    botonEditar.grid(row=3, column=1, padx=10, pady=10)
+    botonEditar.grid(row=3, column=0, padx=10, pady=10)
 
     botonEliminar = Button(frameListaCategorias, text="Eliminar Categoria", command=lambda:consultasBBDD.eliminarCategoria(listaLablel,categoriasVentana))
     botonEliminar.config(bg="tomato3", activebackground="tomato2", fg="sienna4", activeforeground="gray9")
-    botonEliminar.grid(row=3, column=2, padx=10, pady=10)
+    botonEliminar.grid(row=3, column=1, padx=10, pady=10)
 
 #------ Funcion para la interface que muestra la informacion de un producto para editarlo
 
